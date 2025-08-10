@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Tutorials for</title>
+    <style>
+        body{
+            font-family: Arial,sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .type{
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .data_science{
+            background-color: skyblue;
+        }
+        .ds_topics{
+            /*background-color: skyblue;
+            padding: 10px;
+            text-decoration: none;
+            text-align: left;
+            white-space: pre-line; */ 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            text-align: left;
+        }
+        .ds_topics a{
+            flex: 0 0 30%%;
+            background-color: pink;
+            padding: 1px;
+            border-radius: 3px;
+            text-decoration: none;
+            color: black;
+            box-sizing: border-box;
+            display: block;
+            margin-bottom: 2px;
+            margin: 5px auto;
+            width: 30%;
+        }
+        .ds_topics a:hover{
+            background-color: #45a049;
+        }
+        .back-button{
+            margin-top: 30px;
+            text-decoration: none;
+            background-color: skyblue;
+            display: inline-block;
+            padding: 8px 15px;
+            color: black;
+            font-weignt: bold;
+        }
+        .back-button a{
+            text-decoration: none;
+        }
+        .back-button a:hover{
+            background-color: white;
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+        <script>
+            fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu-container").innerHTML = data;
+            });
+        </script>
+    <div class='type'>
+        <h1>Tutorials type</h1>
+    </div>
+    <div class='data_science'>
+        <h2>Statistics and Data Science</h2>
+        <div class='ds_topics'>
+            <a href='conf_matrix.html'>Confusion Matrix</a>
+            <a href='#'>KNN</a>
+            <a href='#'>ANN</a>
+            <a href='#'>Random Forest</a>
+            <a href='#'>Decision Tree</a>
+            <a href='#'>Fuzzy C means Clustering</a>
+            <a href='#'>Support Vector Machine</a>
+
+            <a href='#'>K means</a>
+            <a href='#'>elbow method</a>
+            <a href='#'>CART</a>
+            <a href='#'>Naive Bayes</a>
+            <a href='#'>Bayesian</a>
+            <a href='#'>Inferential Statistics</a>
+        </div>
+    </div>
+    <div class='back-button'>
+        <a href='home.html'>Back to Home</a>
+    </div>
+</body>
+</html>
