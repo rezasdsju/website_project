@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale= 1.0'>
+    <title>homepage</title>
+    <style>
+        body {
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 950px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+        header {
+            background-color: cyan;
+            border: 2px solid black;
+            border-radius: 10px;
+            padding: 1px 2px;
+            text-align: center;
+            box-shadow: 2px 2px 8px blue;
+            margin-bottom: 20px;
+        }
+        .srti {
+            color: blue;
+        }
+        .srti p {
+            width: 50%;
+            border: 2px solid green;
+            color: black;
+        }
+        .footer {
+            display: flex;
+            flex-direction: column; /* Stacks the header and box vertically */
+            align-items: flex-end; /* Aligns content to the right */
+            padding: 10px;
+            color: blueviolet;
+        }
+        .admin-box {
+            background-color: #e0f7fa;
+            border: 2px solid #00796b;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            max-width: 350px;
+            color: #004d40;
+            font-weight: bold;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+        <script>
+            fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu-container").innerHTML = data;
+            });
+        </script>
+
+    <div class="container">
+        <header>
+            <h1>Welcome to RTI</h1>
+        </header>
+    </div>
+    <div class='srti'>
+        <h2> About RTI</h2>
+        <p>RTI stands for Research and Technology Institute. It is established by Rezaul Karim Rifat.
+            Here Tutorial on many topics can be found. You can practice programming here.You can make result sheet for your 
+        school,college and university.</p>
+    </div>
+    <div class="footer">
+        <h2>About Admin</h2>
+        <p class="admin-box">I am Rezaul Karim Rifat studying at Statistics and Data Science at Jahangirnagar University
+            <br>My github link<br> My leedcode profile link
+        </p>
+    </div>
+</body>
+</html>
