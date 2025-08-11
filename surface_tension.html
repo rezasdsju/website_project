@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পদার্থের গাঠনিক ধর্ম - পৃষ্ঠটান</title>
+    <style>
+        body {
+            font-family: 'Kalpurush', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #1a5276;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #2874a6;
+            margin-top: 40px;
+            border-left: 5px solid #5dade2;
+            padding-left: 15px;
+            background-color: #ebf5fb;
+            padding: 10px;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .content-box {
+            background-color: #eaf2f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .definition-box {
+            background-color: #e8f8f5;
+            border-left: 5px solid #1abc9c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .example-box {
+            background-color: #fef9e7;
+            border-left: 5px solid #f39c12;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .formula-box {
+            background-color: #f5eef8;
+            border-left: 5px solid #9b59b6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .formula {
+            font-family: 'Courier New', monospace;
+            background-color: #ebebeb;
+            padding: 5px 10px;
+            border-radius: 3px;
+            margin: 5px 0;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        
+        .diagram {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .problem {
+            background-color: #fdedec;
+            border-left: 5px solid #e74c3c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .solution {
+            background-color: #e8f8f5;
+            border-left: 5px solid #1abc9c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .topic-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .topic-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .topic-list li:before {
+            content: "→";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .topic-list a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .topic-list a:hover {
+            text-decoration: underline;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9em;
+            border-top: 1px solid #bdc3c7;
+            padding-top: 20px;
+        }
+        
+        .unit-dimension {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .unit-dimension h4 {
+            margin-top: 0;
+            color: #2874a6;
+        }
+        
+        .unit-dimension ul {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+        <script>
+            fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu-container").innerHTML = data;
+            });
+        </script>
+    <h1>পদার্থের গাঠনিক ধর্ম - পৃষ্ঠটান</h1>
+    
+    <div class="content-box">
+        <h3>আলোচ্য বিষয়সমূহ</h3>
+        <ul class="topic-list">
+            <li><a href="#concept">পৃষ্ঠটানের ধারণা</a></li>
+            <li><a href="#why">পৃষ্ঠটান কেন হয়?</a></li>
+            <li><a href="#definition">পৃষ্ঠটানের সংজ্ঞা</a></li>
+            <li><a href="#formula">পৃষ্ঠটানের রাশিমালা</a></li>
+            <li><a href="#energy">পৃষ্ঠশক্তি</a></li>
+            <li><a href="#problem1">পৃষ্ঠশক্তির Math Problem</a></li>
+            <li><a href="#contact">স্পর্শকোণ (Contact Angle)</a></li>
+            <li><a href="#capillary">কৌশিক নালীতে তরলের আরোহন/অবরোহণ সূত্র</a></li>
+            <li><a href="#problem2">স্পর্শকোণের Math Problem</a></li>
+        </ul>
+    </div>
+    
+    <h2 id="concept">পৃষ্ঠটানের ধারণা</h2>
+    
+    <div class="definition-box">
+        <p>তরলের একটি বিশেষ বৈশিষ্ট্য আছে। তরলের মুক্ত পৃষ্ঠ টানটান হয়ে থাকতে চায়। তরলের এই বিশেষ ধর্মকে তরলের পৃষ্ঠটান বলে।</p>
+    </div>
+    
+    <div class="definition-box">
+        <h4>পৃষ্ঠটানের সংজ্ঞা</h4>
+        <p>পৃষ্ঠটান (Surface Tension) হল সেই বল, যা তরলের মুক্তপৃষ্ঠকে সংকুচিত রাখতে চায়। এটি তরলের অণুগুলোর মধ্যে আন্তঃআণবিক আকর্ষণের কারণে সৃষ্ট হয়। পৃষ্ঠে অবস্থানকারী অণুগুলোর উপর অভ্যন্তরের অণুগুলোর যে অভিকর্ষজ বল ক্রিয়া করে, সেটাই পৃষ্ঠটানের মূল উৎস।</p>
+    </div>
+    
+    <h2 id="why">পৃষ্ঠটান কেন হয় (ল্যাপলেসের আণবিক তত্ত্ব)</h2>
+    
+    <div class="diagram">
+        <!-- Diagram would be inserted here -->
+        <p>[পৃষ্ঠটানের চিত্র]</p>
+    </div>
+    
+    <div class="content-box">
+        <p>তরল সবসময় চায় তার পৃষ্ঠের ক্ষেত্রফল কম রাখতে। ক্ষেত্রফল কম রাখতে গিয়ে পৃষ্ঠকে টানটান রাখতে হয়। পৃষ্ঠটান-এর কারণেই বৃষ্টির ফোঁটা গোলক আকারে পড়ে।</p>
+    </div>
+    
+    <h2 id="definition">পৃষ্ঠটানের সংজ্ঞা</h2>
+    
+    <div class="definition-box">
+        <p>যদি তরলের মুক্ত পৃষ্ঠে একটি রেখা কল্পনা করা হয়, তবে ওই রেখার প্রতি একক দৈর্ঘ্যে রেখার সঙ্গে লম্বভাবে পৃষ্ঠতল বরাবর এবং রেখার উভয় পাশে যে বল ক্রিয়া করে তাকে ওই তরলের <strong>পৃষ্ঠটান</strong> (Surface Tension) বলা হয়।</p>
+    </div>
+    
+    <div class="example-box">
+        <h4>পৃষ্ঠটানের উদাহরণ</h4>
+        <ul>
+            <li>কচুপাতায় পানি ফেললে পৃষ্ঠটানের জন্য পানি গোলাকার আকার ধারণ করে</li>
+            <li>পৃষ্ঠটানের জন্য বৃষ্টির পানি গোলাকার পরিণত হয়</li>
+            <li>একটি দলবিহীন সুচ পানির উপরে সাবধানে রাখলে সেটি পৃষ্ঠটানের জন্য ভেসে থাকে</li>
+            <li>মাকড়সা পানির পৃষ্ঠটানের জন্য পানির উপর দিয়ে হেঁটে যেতে পারে</li>
+        </ul>
+    </div>
+    
+    <h2 id="formula">পৃষ্ঠটানের রাশিমালা</h2>
+    
+    <div class="content-box">
+        <p>তরলের পৃষ্ঠতলে প্রতি একক দৈর্ঘ্যের উপর বলের মানকে পৃষ্ঠটান বলে।</p>
+    </div>
+    
+    <div class="diagram">
+        <!-- Diagram would be inserted here -->
+        <p>[পৃষ্ঠটান পরিমাপের চিত্র]</p>
+    </div>
+    
+    <div class="formula-box">
+        <h4>পৃষ্ঠটানের সূত্র</h4>
+        <div class="formula">T = F/l</div>
+        <p>যেখানে:</p>
+        <ul>
+            <li>T = পৃষ্ঠটান (N/m)</li>
+            <li>F = রেখার উপর কাজ করা বল (N)</li>
+            <li>l = ভেজা অংশের পরিধি (m)</li>
+        </ul>
+    </div>
+    
+    <div class="unit-dimension">
+        <h4>পৃষ্ঠটানের একক ও মাত্রা</h4>
+        <ul>
+            <li><strong>একক (SI):</strong> নিউটন প্রতি মিটার (N/m)</li>
+            <li><strong>মাত্রা:</strong> [MT⁻²]</li>
+        </ul>
+    </div>
+    
+    <h2 id="energy">পৃষ্ঠশক্তি</h2>
+    
+    <div class="content-box">
+        <p>তরলের মুক্তপৃষ্ঠের ক্ষেত্রফল একক পরিমাণ বাড়াতে যে পরিমাণ কাজ করতে হয়, তাকে পৃষ্ঠশক্তি বলে। তরল ভেদে পৃষ্ঠটান ও পৃষ্ঠশক্তির মান ভিন্ন হয়।</p>
+    </div>
+    
+    <div class="diagram">
+        <!-- Diagram would be inserted here -->
+        <p>[পৃষ্ঠশক্তির চিত্র]</p>
+    </div>
+    
+    <div class="formula-box">
+        <h4>পৃষ্ঠশক্তির সূত্র</h4>
+        <div class="formula">E = W/ΔA</div>
+        <p>যেখানে:</p>
+        <ul>
+            <li>E = পৃষ্ঠশক্তি (একক: Jm⁻²)</li>
+            <li>W = কৃতকাজ (একক: J)</li>
+            <li>ΔA = ক্ষেত্রফল বৃদ্ধি (একক: m²)</li>
+        </ul>
+    </div>
+    
+    <div class="unit-dimension">
+        <h4>পৃষ্ঠশক্তির একক ও মাত্রা</h4>
+        <ul>
+            <li><strong>একক:</strong> Jm⁻²</li>
+            <li><strong>মাত্রা:</strong> [MT⁻²]</li>
+        </ul>
+    </div>
+    
+    <div class="content-box">
+        <p>পৃষ্ঠটান ও পৃষ্ঠশক্তির মান একই। পানির পৃষ্ঠটান = পানির পৃষ্ঠশক্তি = 72.7 × 10⁻³ Nm⁻¹ বা Jm⁻²</p>
+    </div>
+    
+    <h2 id="problem1">পৃষ্ঠশক্তির Math Problem</h2>
+    
+    <div class="problem">
+        <h4>Problem:</h4>
+        <p>1 সেমি ব্যাসার্ধবিশিষ্ট পানির একটি গোলককে স্প্রে করে 10¹² সংখ্যক সমব্যাসার্ধবিশিষ্ট কণায় পরিণত করা হলে, স্প্রে করতে কত কাজ করতে হয়েছে বলে তুমি মনে করো? [BUET]</p>
+    </div>
+    
+    <div class="diagram">
+        <!-- Diagram would be inserted here -->
+        <p>[গোলক স্প্রে করার চিত্র]</p>
+    </div>
+    
+    <div class="solution">
+        <h4>Solution:</h4>
+        <p>ছোট প্রতিটি গোলকের ব্যাসার্ধ = r<br>
+        বড় গোলকের ব্যাসার্ধ, R = 1 × 10⁻² m<br>
+        ছোট গোলকের সংখ্যা = 10¹²<br>
+        পানির পৃষ্ঠশক্তি, E = 72.7 × 10⁻³ Jm⁻²</p>
+        
+        <p>বড় গোলকটির আয়তন = ছোট গোলকগুলোর আয়তনের সমষ্টি<br>
+        V<sub>i</sub> = V<sub>f</sub><br>
+        বা, (4/3)πR³ = 10¹² × (4/3)πr³<br>
+        বা, r = 10⁻⁶ m</p>
+        
+        <p>ΔA = A<sub>final</sub> - A<sub>initial</sub> = 10¹² × 4πr² - 4πR² = ...</p>
+        
+        <p>পৃষ্ঠশক্তি, E = W/ΔA<br>
+        বা, W = E × ΔA = ...</p>
+    </div>
+    
+    <h2 id="contact">স্পর্শকোণ (Contact Angle)</h2>
+    
+    <div class="diagram">
+        <!-- Diagram would be inserted here -->
+        <p>[স্পর্শকোণের চিত্র]</p>
+    </div>
+    
+    <div class="definition-box">
+        <p><strong>সংজ্ঞা:</strong> কঠিন ও তরলের স্পর্শ বিন্দু থেকে বক্র তরল তলে অঙ্কিত স্পর্শক কঠিন পদার্থের সাথে তরলের ভেতরে যে কোণ উৎপন্ন করে তাকে উক্ত কঠিন ও তরলের মধ্যকার স্পর্শ কোণ বলে। কঠিন ও তরলের স্পর্শবিন্দু থেকে তরলের সাথে স্পর্শক টানলে, স্পর্শকটি তরলের ভেতর কঠিনের সাথে যে কোণ উৎপন্ন করে, তাকে স্পর্শকোণ বলে। একে সাধারণত θ দ্বারা প্রকাশ করা হয়।</p>
+    </div>
+    
+    <h2 id="capillary">কৌশিক নালীতে তরলের আরোহন/অবরোহণ সূত্র</h2>
+    
+    <div class="diagram">
+        <!-- Diagram would be inserted here -->
+        <p>[কৌশিক ক্রিয়ার চিত্র]</p>
+    </div>
+    
+    <div class="formula-box">
+        <h4>কৌশিক নালীতে তরলের আরোহন/অবরোহণ সূত্র</h4>
+        <div class="formula">T = (hρgr)/(2cosθ)</div>
+        <p>এখানে:</p>
+        <ul>
+            <li>T = তরলের পৃষ্ঠটান</li>
+            <li>h = তরলের আরোহিত বা অবরোহিত উচ্চতা</li>
+            <li>r = কৌশিক নালীকার ব্যাসার্ধ</li>
+            <li>θ = স্পর্শকোণ</li>
+            <li>ρ = তরলের ঘনত্ব</li>
+            <li>g = অভিকর্ষজ ত্বরণ</li>
+        </ul>
+    </div>
+    
+    <h2 id="problem2">স্পর্শকোণের Math Problem</h2>
+    
+    <div class="problem">
+        <h4>Problem:</h4>
+        <p>0.578 mm ব্যাসের কৌশিক নলকে 72 × 10⁻³ Nm⁻¹ পৃষ্ঠটানের পানিতে ডুবালে নলের মধ্যে পানি উপরের দিকে উঠে আসে। একই নল পারদে ডুবালে, পৃষ্ঠ 1.54 সেন্টিমিটার পরিমাণ অবনমিত হয়। পারদের আপেক্ষিক গুরুত্ব 13.6। পানির স্পর্শকোণ 0° এবং পারদের স্পর্শকোণ 139°।</p>
+        <ol type="a">
+            <li>পানি কৌশিক নলে কত উচ্চতায় উঠবে?</li>
+            <li>পানি ও পারদের মাঝে কোনটির পৃষ্ঠটান বেশি?</li>
+        </ol>
+    </div>
+    
+    <div class="solution">
+        <h4>Solution:</h4>
+        <p>a) আমরা জানি, T = (hρgr)/(2cosθ)<br>
+        বা, h<sub>water</sub> = (T × 2cosθ<sub>water</sub>)/(ρ<sub>water</sub> × g × r) = ...</p>
+        
+        <p>b) পারদের আপেক্ষিক গুরুত্ব = ρ<sub>mercury</sub>/ρ<sub>water</sub><br>
+        ρ<sub>mercury</sub> = পারদের আপেক্ষিক গুরুত্ব × ρ<sub>water</sub><br>
+        পারদের পৃষ্ঠটান, T<sub>mercury</sub> = (hρ<sub>mercury</sub>gr)/(2cosθ<sub>mercury</sub>) = ...</p>
+    </div>
+    
+    <div class="footer">
+        <p>প্রস্তুত করেছেন: রেজাউল করিম রিফাত, এসডিএস-জেইউ</p>
+    </div>
+</body>
+</html>
