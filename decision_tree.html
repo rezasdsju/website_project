@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Tree Example</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        
+        .example-header {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+        }
+        
+        .source-box {
+            background-color: #d4edff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            float: right;
+            width: 300px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .solution-box {
+            background-color: #e8f8f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 5px solid #1abc9c;
+        }
+        
+        .calculation {
+            background-color: #fef9e7;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 5px solid #f39c12;
+        }
+        
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ebebeb;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .tree-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .tree-node {
+            display: inline-block;
+            border: 2px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            margin: 10px;
+            background-color: white;
+            position: relative;
+        }
+        
+        .tree-leaf {
+            display: inline-block;
+            border: 2px solid #2ecc71;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            margin: 10px;
+            background-color: white;
+            position: relative;
+        }
+        
+        .tree-line {
+            position: absolute;
+            background-color: #3498db;
+            width: 2px;
+            height: 30px;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .tree-line-horizontal {
+            position: absolute;
+            background-color: #3498db;
+            width: 30px;
+            height: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .decision {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .note {
+            background-color: #f5eef8;
+            padding: 15px;
+            border-left: 5px solid #9b59b6;
+            margin: 15px 0;
+        }
+        
+        .done {
+            text-align: center;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+        <script>
+            fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu-container").innerHTML = data;
+            });
+        </script>
+
+    <div class="example-header">
+        <h1>Example-01: Make a decision tree for the following dataset</h1>
+    </div>
+    
+    <div class="source-box">
+        <strong>Source:</strong> 
+        <a href="https://youtu.be/CWzpomtLqqs?si=nD00DEl7oOo62hWh" target="_blank">Decision Tree Tutorial Video</a>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Weather</th>
+                <th>Temperature</th>
+                <th>Humidity</th>
+                <th>Wind</th>
+                <th>Play Football</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Day_1</td>
+                <td>Sunny</td>
+                <td>Hot</td>
+                <td>High</td>
+                <td>Weak</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>Day_2</td>
+                <td>Sunny</td>
+                <td>Hot</td>
+                <td>High</td>
+                <td>Strong</td>
+                <td>No</td>
+            </tr>
+            <tr>
+                <td>Day_3</td>
+                <td>Cloudy</td>
+                <td>Hot</td>
+                <td>High</td>
+                <td>Weak</td>
+                <td>Yes</td>
+            </tr>
+            <!-- More rows would be here in a complete implementation -->
+            <tr>
+                <td>Day_14</td>
+                <td>Rain</td>
+                <td>Mild</td>
+                <td>High</td>
+                <td>Strong</td>
+                <td>No</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <h2>Solution</h2>
+    
+    <div class="solution-box">
+        <h3>Initial Calculations</h3>
+        
+        <div class="calculation">
+            <p>Total number of Sunny Days = 5</p>
+            <p>Total number of Cloudy Days = 4</p>
+            <p>Total number of Rainy Days = 5</p>
+            <p>Total = 14</p>
+            <p>Total Positive ("Yes") = 9</p>
+            <p>Total Negative ("No") = 5</p>
+        </div>
+        
+        <h3>Calculate IG (Information Gain) of Weather</h3>
+        
+        <div class="calculation">
+            <h4>Step 1: Entropy of entire Dataset</h4>
+            <p class="formula">Total Entropy(S) = -(p₊)log₂(p₊) - (p₋)log₂(p₋)</p>
+            <p>Where:</p>
+            <ul>
+                <li>p₊ = Positive Class Proportion ("Yes") = 9/14</li>
+                <li>p₋ = Negative Class Proportion ("No") = 5/14</li>
+            </ul>
+            <p class="formula">S{+9,-5} = -9/14 log₂(9/14) - 5/14 log₂(5/14) = 0.94</p>
+        </div>
+        
+        <div class="calculation">
+            <h4>Step 2: Entropy of All Attributes</h4>
+            
+            <h5>Weather Part</h5>
+            <p>Entropy of Sunny:</p>
+            <p class="formula">Entropy(Sunny){+2,-3} = -2/5 log₂(2/5) - 3/5 log₂(3/5) = 0.97</p>
+            
+            <p>Entropy of Cloudy:</p>
+            <p class="formula">Entropy(Cloudy){+4,-0} = -4/4 log₂(4/4) - 0/4 log₂(0/4) = 0</p>
+            
+            <p>Entropy of Rain:</p>
+            <p class="formula">Entropy(Rain){+3,-2} = -3/5 log₂(3/5) - 2/5 log₂(2/5) = 0.97</p>
+            
+            <p>Information Gain:</p>
+            <p class="formula">IG(Weather) = 0.94 - (5/14)(0.97) - (4/14)(0) - (5/14)(0.97) = 0.246</p>
+        </div>
+        
+        <!-- Similar sections for Temperature, Humidity, and Wind would follow -->
+        
+        <div class="note">
+            <p>Now we have:</p>
+            <ul>
+                <li>IG(S, weather) = 0.246</li>
+                <li>IG(S, temperature) = 0.029</li>
+                <li>IG(S, humidity) = 0.15</li>
+                <li>IG(S, wind) = 0.0478</li>
+            </ul>
+            <p class="highlight">IG<sub>max</sub> (max of four) = 0.246 (weather)</p>
+            <p>So, Weather will be the root node</p>
+        </div>
+    </div>
+    
+    <div class="tree-container">
+        <div class="tree-node">Weather</div>
+        
+        <div style="display: flex; justify-content: space-around;">
+            <div>
+                <div class="tree-line"></div>
+                <div class="tree-node">Sunny</div>
+            </div>
+            <div>
+                <div class="tree-line"></div>
+                <div class="tree-node">Cloudy</div>
+                <div class="tree-line"></div>
+                <div class="decision">Yes</div>
+            </div>
+            <div>
+                <div class="tree-line"></div>
+                <div class="tree-node">Rainy</div>
+            </div>
+        </div>
+        
+        <!-- Second level for Sunny -->
+        <div style="display: flex; justify-content: flex-start; margin-left: 100px;">
+            <div>
+                <div class="tree-line"></div>
+                <div class="tree-node">Humidity</div>
+                
+                <div style="display: flex; justify-content: space-around;">
+                    <div>
+                        <div class="tree-line"></div>
+                        <div class="tree-leaf">High</div>
+                        <div class="tree-line"></div>
+                        <div class="decision">No</div>
+                    </div>
+                    <div>
+                        <div class="tree-line"></div>
+                        <div class="tree-leaf">Normal</div>
+                        <div class="tree-line"></div>
+                        <div class="decision">Yes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Second level for Rainy -->
+        <div style="display: flex; justify-content: flex-end; margin-right: 100px;">
+            <div>
+                <div class="tree-line"></div>
+                <div class="tree-node">Wind</div>
+                
+                <div style="display: flex; justify-content: space-around;">
+                    <div>
+                        <div class="tree-line"></div>
+                        <div class="tree-leaf">Strong</div>
+                        <div class="tree-line"></div>
+                        <div class="decision">No</div>
+                    </div>
+                    <div>
+                        <div class="tree-line"></div>
+                        <div class="tree-leaf">Weak</div>
+                        <div class="tree-line"></div>
+                        <div class="decision">Yes</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="done">Solution Done</div>
+</body>
+</html>
