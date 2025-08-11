@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show Result</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* Header Section */
+        .text_center {
+            background-color: #2196F3;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .text_center h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        /* Button Group */
+        .btn_group {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: 20px auto;
+            flex-wrap: wrap;
+        }
+        
+        .btn_group a, .btn_group button {
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 1px solid #1565C0;
+            background-color: #E3F2FD;
+            color: #1565C0;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .btn_group a:hover, .btn_group button:hover {
+            background-color: #BBDEFB;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            max-width: 900px;
+            padding: 25px;
+        }
+        
+        .card_header {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card_header h4 {
+            color: #0D47A1;
+            margin: 0;
+            font-size: 22px;
+        }
+        
+        .card_body p strong {
+            color: #0D47A1;
+        }
+        
+        /* Table Styles */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        
+        .thead {
+            background-color: #0D47A1;
+            color: white;
+        }
+        
+        .thead th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        tbody td {
+            padding: 12px 15px;
+            color: #333;
+        }
+        
+        /* Export Buttons */
+        .text_end {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .exp_pdf a, .exp_csv a {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .exp_pdf a {
+            background-color: #F44336;
+            color: white;
+        }
+        
+        .exp_csv a {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .exp_pdf a:hover, .exp_csv a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .exp_pdf a:hover {
+            background-color: #D32F2F;
+        }
+        
+        .exp_csv a:hover {
+            background-color: #388E3C;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .btn_group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .text_end {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+    <script>
+        fetch("menu.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("menu-container").innerHTML = data;
+        });
+    </script>
+    
+    <div class='text_center'>
+        <h2>All School Result</h2>
+        <div class="btn_group" role='group'>
+            <a href='#'>Export all to PDF</a>
+            <a href='#'>Export all to CSV</a>
+            <form action='#' method='get' class='d_inline'>
+                <button type='submit'>Clear All Data</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class='card'>
+        <div class='card_header'>
+            <h4>Student Name</h4>
+        </div>
+        <div class='card_body'>
+            <p><strong>Overall GPA:</strong></p>
+            <table class='table'>
+                <thead class='thead'>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Mark</th>
+                        <th>Semester</th>
+                        <th>Grade</th>
+                        <th>Subject GPA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bangla</td>
+                        <td>90</td>
+                        <td>1st</td>
+                        <td>A+</td>
+                        <td>5.00</td>
+                    </tr>
+                    <tr>
+                        <td>English</td>
+                        <td>92</td>
+                        <td>1st</td>
+                        <td>A+</td>
+                        <td>5.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text_end">
+                <div class='exp_pdf'><a href='#'>Export PDF</a></div>
+                <div class='exp_csv'><a href='#'>Export CSV</a></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
