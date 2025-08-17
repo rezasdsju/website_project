@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Show Result</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <style>
+        /* Base Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        /* Header Section */
+        .text_center {
+            background-color: #2196F3;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .text_center h2 {
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        /* Button Group */
+        .btn_group {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 15px;
+            max-width: 800px;
+            margin: 20px auto;
+            flex-wrap: wrap;
+        }
+        
+        .btn_group a, .btn_group button {
+            padding: 10px 20px;
+            text-decoration: none;
+            border: 1px solid #1565C0;
+            background-color: #E3F2FD;
+            color: #1565C0;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .btn_group a:hover, .btn_group button:hover {
+            background-color: #BBDEFB;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* Card Styles */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            max-width: 900px;
+            padding: 25px;
+        }
+        
+        .card_header {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .card_header h4 {
+            color: #0D47A1;
+            margin: 0;
+            font-size: 22px;
+        }
+        
+        .card_body p strong {
+            color: #0D47A1;
+        }
+        
+        /* Table Styles */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 15px;
+        }
+        
+        .thead {
+            background-color: #0D47A1;
+            color: white;
+        }
+        
+        .thead th {
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        tbody tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        tbody td {
+            padding: 12px 15px;
+            color: #333;
+        }
+        
+        /* Export Buttons */
+        .text_end {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .exp_pdf a, .exp_csv a {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .exp_pdf a {
+            background-color: #F44336;
+            color: white;
+        }
+        
+        .exp_csv a {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .exp_pdf a:hover, .exp_csv a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .exp_pdf a:hover {
+            background-color: #D32F2F;
+        }
+        
+        .exp_csv a:hover {
+            background-color: #388E3C;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 30px;         /* উপরের দিকে ফাঁকা বাড়ানো */
+            margin-bottom: 40px;      /* নিচের দিকে ফাঁকা রাখা */
+            padding: 12px 25px;       /* বাটনের ভিতরের স্পেস */
+            text-decoration: none;
+            color: #007BFF;
+            background-color: #f0f9ff;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;          /* একটু বড় ফন্ট */
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #007BFF;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .btn_group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .text_end {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+            
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+    <script>
+        fetch("menu.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("menu-container").innerHTML = data;
+        });
+    </script>
+    
+    <div class='text_center'>
+        <h2>All School Result</h2>
+        <div class="btn_group" role='group'>
+            <a href='#'>Export all to PDF</a>
+            <a href='#'>Export all to CSV</a>
+            <form action='#' method='get' class='d_inline'>
+                <button type='submit'>Clear All Data</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class='card'>
+        <div class='card_header'>
+            <h4>Student Name</h4>
+        </div>
+        <div class='card_body'>
+            <p><strong>Overall GPA:</strong></p>
+            <table class='table'>
+                <thead class='thead'>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Mark</th>
+                        <th>Semester</th>
+                        <th>Grade</th>
+                        <th>Subject GPA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bangla</td>
+                        <td>90</td>
+                        <td>1st</td>
+                        <td>A+</td>
+                        <td>5.00</td>
+                    </tr>
+                    <tr>
+                        <td>English</td>
+                        <td>92</td>
+                        <td>1st</td>
+                        <td>A+</td>
+                        <td>5.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text_end">
+                <div class='exp_pdf'><a href='#' onclick="downloadPDF()">Export PDF</a></div>
+                <div class='exp_csv'><a href='#'>Export CSV</a></div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <button type='button' class='back-button' onclick="window.location.href='school_result_input.html'">Back to Form</button>
+    </div>
+    <script>
+        // global variable
+        let subjects = [];
+        let semester = "";
+        let studentName = "";
+        let overallGPA = "";
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // লোকাল স্টোরেজ থেকে ডেটা লোড করা
+            studentName = localStorage.getItem('studentName');
+            semester = localStorage.getItem('semester');
+            overallGPA = localStorage.getItem('overallGPA');
+            subjects = JSON.parse(localStorage.getItem('subjects'));
+
+            // যদি কোনো ডেটা না থাকে, তাহলে একটি মেসেজ দেখানো
+            if (!studentName || !subjects || subjects.length === 0) {
+                document.body.innerHTML = "<div class='container'><h1 style='color:red;'>No result data found. Please go back and create a result sheet.</h1><a href='school_result_input.html' class='back-button'>Go Back</a></div>";
+                return;
+            }
+
+            // HTML এলিমেন্টগুলোতে ডেটা দেখানো
+            document.querySelector('.card_header h4').textContent = studentName;
+            document.querySelector('.card_body p strong').textContent = `Overall GPA: ${overallGPA}`;
+
+            const tableBody = document.querySelector('.table tbody');
+            tableBody.innerHTML = '';
+
+            // প্রতিটি সাবজেক্টের জন্য একটি করে রো তৈরি করা
+            subjects.forEach(subject => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${subject.name}</td>
+                    <td>${subject.mark}</td>
+                    <td>${semester}</td>
+                    <td>${subject.grade}</td>
+                    <td>${subject.gpa.toFixed(2)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        });
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Student Info যোগ করা
+            doc.setFontSize(14);
+            doc.text("Student Name: " + studentName, 14, 20);
+            doc.text("Overall GPA: " + overallGPA, 14, 30);
+
+            // Table data তৈরি
+            const tableData = subjects.map(subject => [
+                subject.name,
+                subject.mark,
+                semester,
+                subject.grade,
+                subject.gpa.toFixed(2)
+            ]);
+
+            // হেডার
+            const headers = [["Subject", "Mark", "Semester", "Grade", "GPA"]];
+
+            // AutoTable ব্যবহার
+            doc.autoTable({
+                head: headers,
+                body: tableData,
+                startY: 40 // টেবিল শুরু হবে student info এর নিচ থেকে
+            });
+
+            // PDF download
+            doc.save(studentName + "_ResultSheet.pdf");
+        }
+    </script>
+</body>
+</html>
