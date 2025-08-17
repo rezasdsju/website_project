@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>School/College Result Sheet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #eaf7ff;
+            color: #333;
+            text-align: center;
+            padding-top: 0px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .form-group label {
+            min-width: 150px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group select {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        #subjects-container .form-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #subjects-container input {
+            flex: 1;
+        }
+        .add-subject-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .add-subject-btn:hover {
+            background-color: #45a049;
+        }
+        .submit-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #007BFF;
+            background-color: #f0f9ff;
+            border: 1px solid #007BFF;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+    <script>
+        fetch("menu.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("menu-container").innerHTML = data;
+        });
+    </script>
+    <div class="container">
+        <h1>Create Result Sheet for School or College</h1>
+        <form method='get' action="show_result.html">
+            <div class="form-group">
+                <label for="student-name">Student Name:</label>
+                <input type="text" id="student-name" name="student-name" required>
+            </div>
+            <div class="form-group">
+                <label for="semester">Semester:</label>
+                <input type="text" id="semester" name="semester" placeholder="e.g., 1st Semester">
+            </div>
+
+            <h2>Subjects & Marks</h2>
+            <div id="subjects-container">
+                <div class="form-group subject-entry">
+                    <label>Subject:</label>
+                    <input type="text" name="subject[]" placeholder="Subject Name" required>
+                    <label>Mark:</label>
+                    <input type="number" name="mark[]" placeholder="e.g., 85" min="0" max="100" required>
+                </div>
+            </div>
+
+            <button type="button" class="add-subject-btn" onclick="addSubject()">Add Subject</button>
+            
+            <br>
+            <button type="submit" class="submit-btn">Generate Result</button>
+        </form>
+        <a href="result_options.html" class="back-button">Back to Options</a>
+    </div>
+
+    <script>
+        // GPA এবং গ্রেড গণনা করার ফাংশন
+        function getGradeAndGpa(mark) {
+            if (mark >= 80) return { grade: 'A+', gpa: 5.00 }; 
+            else if (mark >= 70) return { grade: 'A', gpa: 4.00 }; 
+            else if (mark >= 60) return { grade: 'A-', gpa: 3.50 }; 
+            else if (mark >= 50) return { grade: 'B', gpa: 3.00 }; 
+            else if (mark >= 40) return { grade: 'C', gpa: 2.00 }; 
+            else if (mark >= 33) return { grade: 'D', gpa: 1.00 };
+            else return { grade: 'F', gpa: 0.00 };
+        }
+
+        // addSubject() ফাংশন, যা onclick অ্যাট্রিবিউট থেকে কল করা হবে
+        function addSubject() {   
+            const container = document.getElementById('subjects-container');
+            const newSubjectDiv = document.createElement('div');
+            newSubjectDiv.className = 'form-group subject-entry';
+            newSubjectDiv.innerHTML = `
+                <label>Subject:</label>
+                <input type="text" name="subject[]" placeholder="Subject Name" required>
+                <label>Mark:</label>
+                <input type="number" name="mark[]" placeholder="e.g., 85" min="0" max="100" required>
+            `;
+            container.appendChild(newSubjectDiv);
+        }    
+                     
+        // ফর্ম সাবমিট করার জন্য ইভেন্ট লিসেনার
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();    
+
+            const studentName = document.getElementById('student-name').value;
+            const semester = document.getElementById('semester').value;
+            const subjectInputs = document.getElementsByName('subject[]');
+            const markInputs = document.getElementsByName('mark[]');
+
+            let allSubjects = [];
+            let totalGpaPoints = 0;
+            let subjectCount = 0;
+
+            for (let i = 0; i < subjectInputs.length; i++) {
+                const subjectName = subjectInputs[i].value;
+                const mark = parseFloat(markInputs[i].value);
+
+                if (subjectName && !isNaN(mark)) {
+                    const result = getGradeAndGpa(mark);
+                    allSubjects.push({
+                        name: subjectName,
+                        mark: mark,
+                        semester: semester,
+                        grade: result.grade,
+                        gpa: result.gpa
+                    });
+                    totalGpaPoints += result.gpa;
+                    subjectCount++;
+                }
+            }
+
+            let overallGPA = subjectCount > 0 ? (totalGpaPoints / subjectCount).toFixed(2) : '0.00';
+
+            // সমস্ত ডেটা লোকাল স্টোরেজে সংরক্ষণ করা
+            localStorage.setItem('studentName', studentName);
+            localStorage.setItem('semester', semester);
+            localStorage.setItem('overallGPA', overallGPA);
+            localStorage.setItem('subjects', JSON.stringify(allSubjects));
+
+            window.location.href = 'show_result.html';
+        });
+    </script>
+</body>
+</html>
