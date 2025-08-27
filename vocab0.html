@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vocabulary MCQ Exam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root{
+            --bg:#0f172a;
+            --card:#111827;
+            --muted:#94a3b8;
+            --text:#e5e7eb;
+            --accent:#22c55e;
+            --accent-weak:#16a34a;
+            --danger:#ef4444;
+            --warning:#f59e0b;
+            --info:#60a5fa;
+            --ring: rgba(34,197,94,0.4);
+        }
+        *{box-sizing:border-box}
+        body{
+            margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+            background: linear-gradient(180deg, #0b1220, var(--bg));
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 950px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+        header{
+            width: 72%; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(2,6,23,0.92), rgba(2,6,23,0.6));
+            border-bottom: 1px solid rgba(148,163,184,0.15);
+        }
+        .header-inner{ display:flex; align-items:center; gap:16px; padding:14px 24px; }
+        .brand{ font-weight:700; letter-spacing:0.3px; }
+        .pill{ padding: 6px 10px; background: #0b1324; border:1px solid rgba(148,163,184,0.15); border-radius: 9999px; color: var(--muted); font-size:12px; }
+        .timer{ margin-left:auto; font-variant-numeric: tabular-nums; font-weight:700; padding:6px 12px; border-radius:10px; background:#0b1a2f; border:1px solid rgba(96,165,250,0.3); color:#bfdbfe; }
+        .controls{ display:flex; gap:8px; }
+        button{
+            background: #0b1220; color: var(--text); border:1px solid rgba(148,163,184,0.2); border-radius:12px; padding:10px 14px; cursor:pointer; font-weight:600;
+        }
+        button:hover{ border-color: rgba(148,163,184,0.35); }
+        button.primary{ background: linear-gradient(180deg, var(--accent), var(--accent-weak)); border-color: transparent; color:#052e16; }
+        button.primary:hover{ filter: brightness(0.98); }
+        .card{ background: #0b1220; border:1px solid rgba(148,163,184,0.15); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.35); }
+        .intro{ padding: 20px; margin-top: 16px; }
+        .intro p{ color: var(--muted); margin:8px 0 0; }
+        .meta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:10px; }
+        .meta .chip{ font-size: 13px; padding:6px 10px; border-radius:8px; background:#091225; border:1px solid rgba(148,163,184,0.2); color:#cbd5e1 }
+        .question{ padding: 20px; border-top: 1px solid rgba(148,163,184,0.12); }
+        .q-head{ display:flex; gap:10px; align-items:flex-start; }
+        .q-num{ width:34px; height:34px; border-radius:50%; display:grid; place-content:center; background:#0b1a2f; color:#bfdbfe; font-weight:700; border:1px solid rgba(96,165,250,0.35) }
+        .q-text{ font-weight:600; line-height:1.4 }
+        .options{ margin-top:12px; display:grid; gap:10px; }
+        .option{
+            display:flex; align-items:flex-start; gap:12px; padding:12px; border:1px solid rgba(148,163,184,0.18); border-radius:12px; cursor:pointer; background:#0a1020;
+        }
+        .option:hover{ border-color: rgba(148,163,184,0.32) }
+        .option input{ appearance:none; -webkit-appearance:none; width:18px; height:18px; border-radius: 50%; border:2px solid #93c5fd; margin-top:3px; display:inline-grid; place-content:center; outline:none; }
+        .option input::before{ content:""; width:10px; height:10px; border-radius:50%; transform: scale(0); transition:120ms transform ease-in-out; background: #60a5fa; }
+        .option input:checked::before{ transform: scale(1); }
+        .option .opt-text{ flex:1; }
+        .actions{ position:sticky; bottom:0; background:linear-gradient(180deg, rgba(2,6,23,0), rgba(2,6,23,0.9) 25%, rgba(2,6,23,1)); padding:16px 24px; display:flex; gap:10px; justify-content:space-between; align-items:center; border-top:1px solid rgba(148,163,184,0.15);}
+        .result{ padding: 18px 20px; border-top: 1px solid rgba(148,163,184,0.12); background:#081427; }
+        .result strong{ color:#bbf7d0 }
+        .legend{ display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:14px }
+        .legend span{ display:inline-flex; align-items:center; gap:6px; padding:4px 8px; background:#0b1324; border:1px solid rgba(148,163,184,0.2); border-radius:9999px }
+        .dot{ width:10px; height:10px; border-radius:50% }
+        .dot.correct{ background: var(--accent) }
+        .dot.wrong{ background: var(--danger) }
+        .dot.unanswered{ background: #facc15; }
+        .unanswered-chip { color: #facc15; border-color: rgba(250, 204, 21, 0.4); }
+        .correct-chip { color: #22c55e; border-color: rgba(34, 197, 94, 0.4); }
+        .wrong-chip { color: #ef4444; border-color: rgba(239, 68, 68, 0.4); }
+        .correct{ border-color: rgba(34,197,94,0.6) !important; background: rgba(34,197,94,0.06) }
+        .wrong{ border-color: rgba(239,68,68,0.6) !important; background: rgba(239,68,68,0.06) }
+        .explanation-container { margin-top: 12px; padding: 12px; border-radius: 8px; background: rgba(30, 41, 59, 0.4); }
+        .result-status { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; font-weight: 600;}
+        .correct-status { color: var(--accent); }
+        .wrong-status { color: var(--danger); }
+        .unanswered-status { color: #facc15; }
+        .explain{ color:#cbd5e1; font-size:14px; opacity:0.95; margin: 0; }
+        .hidden{ display:none !important }
+        .mute{ color: var(--muted) }
+        .footer-note{ text-align:center; color:var(--muted); margin: 16px 0 40px; font-size:13px }
+        .score-badge{ font-weight:800; color:#052e16; background:linear-gradient(180deg, #86efac, #22c55e); border-radius:9999px; padding:6px 12px; border:1px solid var(--accent-weak) }
+        .back-button {
+            display: inline-block;
+            margin: 30px auto;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 200px;
+            justify-content: center;
+        }
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #4a6491 0%, #2c3e50 100%);
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        /* User Profile & Dashboard */
+        .profile-card {
+            padding: 20px;
+            margin-top: 16px;
+            text-align: center;
+            background: #0b1220;
+            border-radius: 16px;
+            border: 1px solid rgba(148,163,184,0.15);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+        }
+        .profile-card h2 { margin: 0 0 8px; }
+        .profile-card p { color: var(--muted); margin: 0; }
+        .username-input {
+            margin-top: 16px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--muted);
+            background: #040810;
+            color: var(--text);
+            width: 80%;
+            max-width: 300px;
+        }
+        .save-btn {
+            margin-top: 10px;
+            padding: 10px 20px;
+        }
+        .profile-info {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .info-chip {
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            background: #0b1a2f;
+            color: #bfdbfe;
+            border: 1px solid rgba(96,165,250,0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        @media (max-width:640px){
+            .q-head{ flex-direction:column; }
+            .button-container { flex-direction: column; align-items: center; }
+            header{ width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner container">
+            <div class="brand">📝 Vocabulary Exam</div>
+            <span class="pill">10 Questions • 10 Minutes • +1 / −0.25 / 0</span>
+            <div id="timer" class="timer" aria-live="polite">10:00</div>
+            <div class="controls">
+                <button id="startBtn" class="primary">Start Exam</button>
+                <button id="resetBtn" title="Start a new exam">New Exam</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="user-profile" class="profile-card">
+            <h2>Welcome to Vocabulary Exam</h2>
+            <div id="user-info" class="hidden">
+                <p>Hello, <strong id="display-username"></strong>!</p>
+                <div class="profile-info">
+                    <span class="info-chip">
+                        <i class="fas fa-trophy"></i>
+                        Rank: <span id="display-rank">N/A</span>
+                    </span>
+                    <span class="info-chip">
+                        <i class="fas fa-star"></i>
+                        Rating: <span id="display-rating">0</span>
+                    </span>
+                </div>
+            </div>
+            <div id="login-form">
+                <p class="mute">Please enter your username to continue.</p>
+                <input type="text" id="username-input" class="username-input" placeholder="Enter your username"/>
+                <button id="save-username-btn" class="primary save-btn">Save</button>
+            </div>
+        </section>
+
+        <section class="card intro" id="intro">
+            <h2 style="margin:0 0 6px">Instructions</h2>
+            <ul>
+                <li>10 questions will be drawn randomly from the full pool.</li>
+                <li>All questions are on <strong>English Vocabulary (Synonyms/Antonyms)</strong>.</li>
+                <li>Scoring: Correct +1, Wrong −0.25, Unanswered 0.</li>
+                <li>Time limit: 10 minutes. Auto-submit when time ends.</li>
+                <li>All questions appear on one page — scroll to navigate.</li>
+            </ul>
+        </section>
+
+        <div id="summary" class="card result hidden" role="status" aria-live="polite"></div>
+
+        <form id="exam" class="card" autocomplete="off"></form>
+
+        <div class="actions">
+            <div class="legend">
+                <span><span class="dot correct"></span> সঠিক</span>
+                <span><span class="dot wrong"></span> ভুল</span>
+                <span><span class="dot unanswered"></span> উত্তরহীন</span>
+            </div>
+            <button id="submitBtn" class="primary" disabled>Submit Exam</button>
+        </div>
+        
+        <div class="button-container">
+            <a href='#' class='back-button'>
+                <i class="fas fa-arrow-left"></i> Back to Main
+            </a>
+            <a href='#' class='back-button'>
+                <i class="fas fa-list"></i> See Full List
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // ----------------------------
+        // Utilities
+        // ----------------------------
+        const EXAM_SIZE = 10;
+        const EXAM_MINUTES = 10;
+        const STORAGE_KEY = 'vocabulary_exam_state_v2';
+        const USER_DATA_KEY = 'vocabulary_user_data_v2';
+        
+        const qs = (sel, el=document) => el.querySelector(sel);
+        const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
+        const pick = (arr, n) => {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a.slice(0, n);
+        };
+        
+        function formatTime(s){
+            const m = Math.floor(s/60).toString().padStart(2,'0');
+            const r = Math.floor(s%60).toString().padStart(2,'0');
+            return `${m}:${r}`;
+        }
+        
+        function saveState(state){ sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+        function loadState(){ try{ return JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'null'); }catch{return null} }
+        function clearState(){ sessionStorage.removeItem(STORAGE_KEY); }
+        
+        function saveUserData(userData) { localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData)); }
+        function loadUserData() {
+            try {
+                const data = JSON.parse(localStorage.getItem(USER_DATA_KEY) || 'null');
+                if (data && data.username) {
+                    return data;
+                }
+                return { username: null, score: 0 };
+            } catch {
+                return { username: null, score: 0 };
+            }
+        }
+
+        // ----------------------------
+        // Question Pool (Synonyms/Antonyms/Meaning)
+        // ----------------------------
+        const QUESTIONS = [
+            { "id": 1, "q": "Choose the Bengali meaning of: 'ubiquitous'", "options": ["বিরল", "সুস্পষ্ট", "গোপন", "সর্বত্র বিদ্যমান"], "answer": 3, "explain": "ব্যাখ্যা: Ubiquitous অর্থ সর্বত্র বিদ্যমান বা সর্বত্র উপস্থিত। যেমন, 'আজকাল স্মার্টফোন সর্বত্র বিদ্যমান (ubiquitous)'।" },
+            { "id": 2, "q": "Choose the synonym of 'Ephemeral'", "options": ["Permanent", "Enduring", "Temporary", "Lasting"], "answer": 2, "explain": "ব্যাখ্যা: Ephemeral অর্থ ক্ষণস্থায়ী বা অল্প সময়ের জন্য। এর সমার্থক শব্দ হলো 'Temporary'।" },
+            { "id": 3, "q": "Choose the antonym of 'Apathy'", "options": ["Indifference", "Enthusiasm", "Lethargy", "Sluggishness"], "answer": 1, "explain": "ব্যাখ্যা: Apathy অর্থ উদাসীনতা বা অনীহা। এর বিপরীত শব্দ হলো 'Enthusiasm' যার অর্থ উদ্দীপনা বা আগ্রহ।" },
+            { "id": 4, "q": "Choose the Bengali meaning of 'Candid'", "options": ["ভিতু", "স্বচ্ছ বা অকপট", "চালবাজ", "ধূর্ত"], "answer": 1, "explain": "ব্যাখ্যা: Candid অর্থ খোলাখুলি বা অকপট। এটি সৎ এবং সরাসরি কথা বলার সাথে সম্পর্কিত।" },
+            { "id": 5, "q": "Choose the synonym of 'Mitigate'", "options": ["Intensify", "Aggravate", "Alleviate", "Worsen"], "answer": 2, "explain": "ব্যাখ্যা: Mitigate অর্থ প্রশমিত করা বা তীব্রতা কমানো। এর সমার্থক শব্দ 'Alleviate'।" },
+            { "id": 6, "q": "Choose the antonym of 'Disparate'", "options": ["Different", "Similar", "Distinct", "Separate"], "answer": 1, "explain": "ব্যাখ্যা: Disparate অর্থ ভিন্ন বা অসম। এর বিপরীত শব্দ 'Similar' যার অর্থ একই রকম।" },
+            { "id": 7, "q": "Choose the Bengali meaning of 'Ostentatious'", "options": ["বিনয়ী", "ধনী", "আড়ম্বরপূর্ণ", "কঠোর"], "answer": 2, "explain": "ব্যাখ্যা: Ostentatious অর্থ আড়ম্বরপূর্ণ বা জাঁকজমকপূর্ণ, যা অন্যদের মুগ্ধ করার উদ্দেশ্যে প্রদর্শিত হয়।" },
+            { "id": 8, "q": "Choose the synonym of 'Perfunctory'", "options": ["Thorough", "Careful", "Superficial", "Diligent"], "answer": 2, "explain": "ব্যাখ্যা: Perfunctory অর্থ দায়সারা বা অমনোযোগীভাবে করা। এর সমার্থক শব্দ 'Superficial'।" },
+            { "id": 9, "q": "Choose the antonym of 'Garrulous'", "options": ["Talkative", "Quiet", "Verbose", "Chatty"], "answer": 1, "explain": "ব্যাখ্যা: Garrulous অর্থ বাচাল বা অতিরিক্ত কথা বলা। এর বিপরীত শব্দ 'Quiet' যার অর্থ শান্ত।" },
+            { "id": 10, "q": "Choose the Bengali meaning of 'Pernicious'", "options": ["উপকারী", "ক্ষতিকর", "সুখকর", "আনন্দদায়ক"], "answer": 1, "explain": "ব্যাখ্যা: Pernicious অর্থ মারাত্মক বা ক্ষতিকর। যেমন, 'ধূমপান স্বাস্থ্যের জন্য ক্ষতিকর (pernicious)'।" },
+            { "id": 11, "q": "Choose the synonym of 'Acumen'", "options": ["Stupidity", "Dullness", "Ignorance", "Shrewdness"], "answer": 3, "explain": "ব্যাখ্যা: Acumen অর্থ তীক্ষ্ণতা বা সূক্ষ্ম বুদ্ধি। এর সমার্থক শব্দ 'Shrewdness'।" },
+            { "id": 12, "q": "Choose the antonym of 'Meticulous'", "options": ["Careful", "Precise", "Careless", "Thorough"], "answer": 2, "explain": "ব্যাখ্যা: Meticulous অর্থ সূক্ষ্ম ও নিখুঁতভাবে। এর বিপরীত শব্দ 'Careless' যার অর্থ অসতর্ক।" },
+            { "id": 13, "q": "Choose the Bengali meaning of 'Sycophant'", "options": ["সৎ ব্যক্তি", "চাটুকার", "শিক্ষক", "রোগী"], "answer": 1, "explain": "ব্যাখ্যা: Sycophant অর্থ চাটুকার বা তোষামোদকারী।" },
+            { "id": 14, "q": "Choose the synonym of 'Rescind'", "options": ["Confirm", "Annul", "Enact", "Validate"], "answer": 1, "explain": "ব্যাখ্যা: Rescind অর্থ বাতিল করা। এর সমার্থক শব্দ 'Annul'।" },
+            { "id": 15, "q": "Choose the antonym of 'Taciturn'", "options": ["Reticent", "Reserved", "Talkative", "Silent"], "answer": 2, "explain": "ব্যাখ্যা: Taciturn অর্থ স্বল্পভাষী। এর বিপরীত শব্দ 'Talkative' যার অর্থ বাচাল।" },
+            { "id": 16, "q": "Choose the Bengali meaning of 'Quiescent'", "options": ["সক্রিয়", "নিষ্ক্রিয়", "উত্তেজিত", "শান্ত"], "answer": 1, "explain": "ব্যাখ্যা: Quiescent অর্থ শান্ত বা নিষ্ক্রিয়। এটি একটি সুপ্ত অবস্থার বর্ণনা করে।" },
+            { "id": 17, "q": "Choose the synonym of 'Belligerent'", "options": ["Peaceful", "Hostile", "Friendly", "Calm"], "answer": 1, "explain": "ব্যাখ্যা: Belligerent অর্থ যুদ্ধমান বা আক্রমণাত্মক। এর সমার্থক শব্দ 'Hostile'।" },
+            { "id": 18, "q": "Choose the antonym of 'Malign'", "options": ["Praise", "Harm", "Slander", "Defame"], "answer": 0, "explain": "ব্যাখ্যা: Malign অর্থ নিন্দা করা বা ক্ষতি করা। এর বিপরীত শব্দ 'Praise' যার অর্থ প্রশংসা করা।" },
+            { "id": 19, "q": "Choose the Bengali meaning of 'Rancid'", "options": ["সতেজ", "দুর্গন্ধযুক্ত", "সুস্বাদু", "মিষ্টি"], "answer": 1, "explain": "ব্যাখ্যা: Rancid অর্থ বাসি বা পচা, যা সাধারণত দুর্গন্ধযুক্ত হয়।" },
+            { "id": 20, "q": "Choose the synonym of 'Ameliorate'", "options": ["Worsen", "Improve", "Deteriorate", "Harm"], "answer": 1, "explain": "ব্যাখ্যা: Ameliorate অর্থ উন্নত করা। এর সমার্থক শব্দ 'Improve'।" },
+            { "id": 21, "q": "Choose the antonym of 'Abate'", "options": ["Subside", "Decrease", "Intensify", "Lessen"], "answer": 2, "explain": "ব্যাখ্যা: Abate অর্থ কমানো বা হ্রাস করা। এর বিপরীত শব্দ 'Intensify' যার অর্থ তীব্রতা বাড়ানো।" },
+            { "id": 22, "q": "Choose the Bengali meaning of 'Credulous'", "options": ["সন্দেহপ্রবণ", "বিশ্বাসী", "বুদ্ধিমান", "মূর্খ"], "answer": 1, "explain": "ব্যাখ্যা: Credulous অর্থ সহজে বিশ্বাসপ্রবণ বা সরল।" },
+            { "id": 23, "q": "Choose the synonym of 'Deleterious'", "options": ["Beneficial", "Harmful", "Helpful", "Advantageous"], "answer": 1, "explain": "ব্যাখ্যা: Deleterious অর্থ ক্ষতিকর বা বিপজ্জনক। এর সমার্থক শব্দ 'Harmful'।" },
+            { "id": 24, "q": "Choose the antonym of 'Enervate'", "options": ["Strengthen", "Weaken", "Exhaust", "Fatigue"], "answer": 0, "explain": "ব্যাখ্যা: Enervate অর্থ দুর্বল করা। এর বিপরীত শব্দ 'Strengthen' যার অর্থ শক্তিশালী করা।" },
+            { "id": 25, "q": "Choose the Bengali meaning of 'Fervent'", "options": ["উদাসীন", "নম্র", "প্রবল আবেগপূর্ণ", "শান্ত"], "answer": 2, "explain": "ব্যাখ্যা: Fervent অর্থ অত্যন্ত আবেগপূর্ণ বা উৎসাহী।" },
+            { "id": 26, "q": "Choose the synonym of 'Gourmand'", "options": ["Connoisseur", "Ascetic", "Foodie", "Fastidious"], "answer": 2, "explain": "ব্যাখ্যা: Gourmand অর্থ খাদ্যরসিক বা ভোজনবিলাসী। এর সমার্থক শব্দ 'Foodie'।" },
+            { "id": 27, "q": "Choose the antonym of 'Ignominious'", "options": ["Disgraceful", "Shameful", "Honorable", "Humiliating"], "answer": 2, "explain": "ব্যাখ্যা: Ignominious অর্থ অপমানজনক বা লজ্জাজনক। এর বিপরীত শব্দ 'Honorable' যার অর্থ সম্মানজনক।" },
+            { "id": 28, "q": "Choose the Bengali meaning of 'Languid'", "options": ["শ্রমিক", "সক্রিয়", "নিস্তেজ", "শক্তিশালী"], "answer": 2, "explain": "ব্যাখ্যা: Languid অর্থ নিস্তেজ বা অলস। এটি শক্তির অভাবকে নির্দেশ করে।" },
+            { "id": 29, "q": "Choose the synonym of 'Nascent'", "options": ["Developed", "Emerging", "Mature", "Old"], "answer": 1, "explain": "ব্যাখ্যা: Nascent অর্থ নবজাত বা প্রারম্ভিক অবস্থায় আছে এমন। এর সমার্থক শব্দ 'Emerging'।" },
+            { "id": 30, "q": "Choose the antonym of 'Obsequious'", "options": ["Sycophantic", "Servile", "Domineering", "Submissive"], "answer": 2, "explain": "ব্যাখ্যা: Obsequious অর্থ তোষামোদকারী বা অতিশয় বিনয়ী। এর বিপরীত শব্দ 'Domineering' যার অর্থ কর্তৃত্বপরায়ণ।" },
+            { "id": 31, "q": "Choose the Bengali meaning of 'Pugnacious'", "options": ["শান্ত", "ঝগড়াটে", "ভিতু", "উদাসীন"], "answer": 1, "explain": "ব্যাখ্যা: Pugnacious অর্থ ঝগড়াটে বা কলহপ্রিয়।" },
+            { "id": 32, "q": "Choose the synonym of 'Recalcitrant'", "options": ["Obedient", "Defiant", "Compliant", "Submissive"], "answer": 1, "explain": "ব্যাখ্যা: Recalcitrant অর্থ অবাধ্য বা বিদ্রোহী। এর সমার্থক শব্দ 'Defiant'।" },
+            { "id": 33, "q": "Choose the antonym of 'Salubrious'", "options": ["Healthy", "Beneficial", "Harmful", "Wholesome"], "answer": 2, "explain": "ব্যাখ্যা: Salubrious অর্থ স্বাস্থ্যকর। এর বিপরীত শব্দ 'Harmful' যার অর্থ ক্ষতিকর।" },
+            { "id": 34, "q": "Choose the Bengali meaning of 'Trenchant'", "options": ["অস্পষ্ট", "ধারালো বা তীক্ষ্ণ", "ধীর", "সহজ"], "answer": 1, "explain": "ব্যাখ্যা: Trenchant অর্থ তীক্ষ্ণ ও সুস্পষ্ট।" },
+            { "id": 35, "q": "Choose the synonym of 'Vacillate'", "options": ["Decide", "Hesitate", "Resolve", "Determine"], "answer": 1, "explain": "ব্যাখ্যা: Vacillate অর্থ দোদুল্যমান হওয়া বা সিদ্ধান্ত নিতে ইতস্তত করা। এর সমার্থক শব্দ 'Hesitate'।" },
+            { "id": 36, "q": "Choose the antonym of 'Vituperate'", "options": ["Praise", "Condemn", "Censor", "Rebuke"], "answer": 0, "explain": "ব্যাখ্যা: Vituperate অর্থ নিন্দা করা বা গালি দেওয়া। এর বিপরীত শব্দ 'Praise' যার অর্থ প্রশংসা করা।" },
+            { "id": 37, "q": "Choose the Bengali meaning of 'Wily'", "options": ["সৎ", "ধূর্ত", "বোকা", "ভীরু"], "answer": 1, "explain": "ব্যাখ্যা: Wily অর্থ ধূর্ত বা শঠ।" },
+            { "id": 38, "q": "Choose the synonym of 'Zenith'", "options": ["Bottom", "Nadir", "Peak", "Base"], "answer": 2, "explain": "ব্যাখ্যা: Zenith অর্থ শিখর বা সর্বোচ্চ বিন্দু। এর সমার্থক শব্দ 'Peak'।" },
+            { "id": 39, "q": "Choose the antonym of 'Zealous'", "options": ["Passionate", "Eager", "Apathetic", "Ardent"], "answer": 2, "explain": "ব্যাখ্যা: Zealous অর্থ অত্যুৎসাহী। এর বিপরীত শব্দ 'Apathetic' যার অর্থ উদাসীন।" },
+            { "id": 40, "q": "Choose the Bengali meaning of 'Soporific'", "options": ["সক্রিয়কারী", "ঘুম উদ্রেককারী", "আনন্দদায়ক", "উত্তেজক"], "answer": 1, "explain": "ব্যাখ্যা: Soporific অর্থ ঘুম উদ্রেককারী বা তন্দ্রাচ্ছন্নকারী।" },
+            { "id": 41, "q": "Choose the synonym of 'Ebullient'", "options": ["Depressed", "Enthusiastic", "Listless", "Calm"], "answer": 1, "explain": "ব্যাখ্যা: Ebullient অর্থ অত্যন্ত উদ্যমপূর্ণ বা উচ্ছ্বসিত। এর সমার্থক শব্দ 'Enthusiastic'।" },
+            { "id": 42, "q": "Choose the antonym of 'Inchoate'", "options": ["Undeveloped", "Formless", "Developed", "Chaotic"], "answer": 2, "explain": "ব্যাখ্যা: Inchoate অর্থ অসংগঠিত বা অপরিণত। এর বিপরীত শব্দ 'Developed' যার অর্থ বিকশিত।" },
+            { "id": 43, "q": "Choose the Bengali meaning of 'Lassitude'", "options": ["শক্তি", "ক্লান্তি", "আনন্দ", "উৎসাহ"], "answer": 1, "explain": "ব্যাখ্যা: Lassitude অর্থ ক্লান্তি বা অবসাদ।" },
+            { "id": 44, "q": "Choose the synonym of 'Paltry'", "options": ["Considerable", "Insignificant", "Substantial", "Significant"], "answer": 1, "explain": "ব্যাখ্যা: Paltry অর্থ তুচ্ছ বা সামান্য। এর সমার্থক শব্দ 'Insignificant'।" },
+            { "id": 45, "q": "Choose the antonym of 'Proliferate'", "options": ["Multiply", "Increase", "Decrease", "Expand"], "answer": 2, "explain": "ব্যাখ্যা: Proliferate অর্থ দ্রুত বৃদ্ধি পাওয়া। এর বিপরীত শব্দ 'Decrease' যার অর্থ হ্রাস পাওয়া।" },
+            { "id": 46, "q": "Choose the Bengali meaning of 'Repudiate'", "options": ["গ্রহণ করা", "ত্যাগ করা", "স্বীকার করা", "অনুমোদন করা"], "answer": 1, "explain": "ব্যাখ্যা: Repudiate অর্থ প্রত্যাখ্যান করা বা ত্যাগ করা।" },
+            { "id": 47, "q": "Choose the synonym of 'Turgid'", "options": ["Plain", "Inflated", "Simple", "Succinct"], "answer": 1, "explain": "ব্যাখ্যা: Turgid অর্থ ফোলা বা অতিশয় অলংকৃত। এর সমার্থক শব্দ 'Inflated'।" },
+            { "id": 48, "q": "Choose the antonym of 'Venerate'", "options": ["Revere", "Despise", "Honor", "Adore"], "answer": 1, "explain": "ব্যাখ্যা: Venerate অর্থ শ্রদ্ধা করা। এর বিপরীত শব্দ 'Despise' যার অর্থ ঘৃণা করা।" },
+            { "id": 49, "q": "Choose the Bengali meaning of 'Abscond'", "options": ["প্রকাশ করা", "পালিয়ে যাওয়া", "থাকা", "যোগদান করা"], "answer": 1, "explain": "ব্যাখ্যা: Abscond অর্থ পালিয়ে যাওয়া, বিশেষত যখন কোন অপরাধ থেকে বাঁচতে হয়।" },
+            { "id": 50, "q": "Choose the synonym of 'Burgeon'", "options": ["Shrink", "Wither", "Flourish", "Decline"], "answer": 2, "explain": "ব্যাখ্যা: Burgeon অর্থ দ্রুত বৃদ্ধি পাওয়া বা বিকশিত হওয়া। এর সমার্থক শব্দ 'Flourish'।" },
+            { "id": 51, "q": "Choose the antonym of 'Corroborate'", "options": ["Confirm", "Validate", "Contradict", "Support"], "answer": 2, "explain": "ব্যাখ্যা: Corroborate অর্থ সমর্থন করা বা প্রমাণ করা। এর বিপরীত শব্দ 'Contradict' যার অর্থ বিরোধিতা করা।" },
+            { "id": 52, "q": "Choose the Bengali meaning of 'Dilatory'", "options": ["সক্রিয়", "ধীর বা বিলম্বকারী", "দ্রুত", "সঠিক"], "answer": 1, "explain": "ব্যাখ্যা: Dilatory অর্থ ধীরগতি বা বিলম্বকারী।" },
+            { "id": 53, "q": "Choose the synonym of 'Exonerate'", "options": ["Accuse", "Convict", "Absolve", "Blame"], "answer": 2, "explain": "ব্যাখ্যা: Exonerate অর্থ নির্দোষ প্রমাণ করা। এর সমার্থক শব্দ 'Absolve'।" },
+            { "id": 54, "q": "Choose the antonym of 'Fastidious'", "options": ["Careful", "Easygoing", "Meticulous", "Particular"], "answer": 1, "explain": "ব্যাখ্যা: Fastidious অর্থ খুঁতখুঁতে। এর বিপরীত শব্দ 'Easygoing' যার অর্থ সহজে মানিয়ে নেওয়া।" },
+            { "id": 55, "q": "Choose the Bengali meaning of 'Gregarious'", "options": ["একাকী", "সামাজিক", "ভয় পাওয়া", "শান্ত"], "answer": 1, "explain": "ব্যাখ্যা: Gregarious অর্থ সামাজিক বা দলবদ্ধভাবে থাকতে পছন্দ করে এমন।" },
+            { "id": 56, "q": "Choose the synonym of 'Hackneyed'", "options": ["Original", "Fresh", "Trite", "New"], "answer": 2, "explain": "ব্যাখ্যা: Hackneyed অর্থ গতানুগতিক বা পুরনো। এর সমার্থক শব্দ 'Trite'।" },
+            { "id": 57, "q": "Choose the antonym of 'Impecunious'", "options": ["Poor", "Wealthy", "Destitute", "Penniless"], "answer": 1, "explain": "ব্যাখ্যা: Impecunious অর্থ দরিদ্র। এর বিপরীত শব্দ 'Wealthy' যার অর্থ ধনী।" },
+            { "id": 58, "q": "Choose the Bengali meaning of 'Jettison'", "options": ["রক্ষা করা", "ফেলে দেওয়া", "ধরে রাখা", "সাঁতার কাটা"], "answer": 1, "explain": "ব্যাখ্যা: Jettison অর্থ ফেলে দেওয়া বা বাদ দেওয়া।" },
+            { "id": 59, "q": "Choose the synonym of 'Laconic'", "options": ["Verbose", "Concise", "Talkative", "Long-winded"], "answer": 1, "explain": "ব্যাখ্যা: Laconic অর্থ অল্প কথায় বা সংক্ষেপে বলা। এর সমার্থক শব্দ 'Concise'।" },
+            { "id": 60, "q": "Choose the antonym of 'Magnanimous'", "options": ["Generous", "Petty", "Charitable", "Noble"], "answer": 1, "explain": "ব্যাখ্যা: Magnanimous অর্থ উদার বা মহান। এর বিপরীত শব্দ 'Petty' যার অর্থ তুচ্ছ বা সংকীর্ণমনা।" },
+            { "id": 61, "q": "Choose the Bengali meaning of 'Obfuscate'", "options": ["স্পষ্ট করা", "ঝাপসা বা বিভ্রান্ত করা", "আলো ছড়ানো", "বিশ্লেষণ করা"], "answer": 1, "explain": "ব্যাখ্যা: Obfuscate অর্থ অস্পষ্ট বা বিভ্রান্ত করা।" },
+            { "id": 62, "q": "Choose the synonym of 'Pernicious'", "options": ["Beneficial", "Lethal", "Helpful", "Healthy"], "answer": 1, "explain": "ব্যাখ্যা: Pernicious অর্থ মারাত্মক বা ক্ষতিকর। এর সমার্থক শব্দ 'Lethal'।" },
+            { "id": 63, "q": "Choose the antonym of 'Philistine'", "options": ["Cultured", "Ignorant", "Uncultured", "Banal"], "answer": 0, "explain": "ব্যাখ্যা: Philistine অর্থ সংস্কৃতি বা শিল্পের প্রতি অজ্ঞ ব্যক্তি। এর বিপরীত শব্দ 'Cultured' যার অর্থ সংস্কৃতবান।" },
+            { "id": 64, "q": "Choose the Bengali meaning of 'Querulous'", "options": ["শান্ত", "অসন্তুষ্ট", "হাসিখুশি", "সন্তুষ্ট"], "answer": 1, "explain": "ব্যাখ্যা: Querulous অর্থ অভিযোগকারী বা অসন্তুষ্ট।" },
+            { "id": 65, "q": "Choose the synonym of 'Reticent'", "options": ["Talkative", "Silent", "Open", "Garrulous"], "answer": 1, "explain": "ব্যাখ্যা: Reticent অর্থ স্বল্পভাষী বা কম কথা বলে এমন। এর সমার্থক শব্দ 'Silent'।" },
+            { "id": 66, "q": "Choose the antonym of 'Soporific'", "options": ["Sleep-inducing", "Stimulating", "Calming", "Sedative"], "answer": 1, "explain": "ব্যাখ্যা: Soporific অর্থ ঘুম উদ্রেককারী। এর বিপরীত শব্দ 'Stimulating' যার অর্থ উদ্দীপক।" },
+            { "id": 67, "q": "Choose the Bengali meaning of 'Travesty'", "options": ["প্রশংসা", "বিকৃতি", "সঠিক রূপ", "অনুকরণ"], "answer": 1, "explain": "ব্যাখ্যা: Travesty অর্থ বিকৃতি বা হাস্যকর অনুকরণ।" },
+            { "id": 68, "q": "Choose the synonym of 'Ubiquitous'", "options": ["Rare", "Common", "Scarce", "Unique"], "answer": 1, "explain": "ব্যাখ্যা: Ubiquitous অর্থ সর্বত্র বিদ্যমান। এর সমার্থক শব্দ 'Common'।" },
+            { "id": 69, "q": "Choose the antonym of 'Vapid'", "options": ["Lively", "Dull", "Boring", "Flat"], "answer": 0, "explain": "ব্যাখ্যা: Vapid অর্থ প্রাণহীন বা নীরস। এর বিপরীত শব্দ 'Lively' যার অর্থ প্রাণবন্ত।" },
+            { "id": 70, "q": "Choose the Bengali meaning of 'Winsome'", "options": ["আকর্ষণীয়", "বিরক্তিকর", "বিশ্রী", "রুক্ষ"], "answer": 0, "explain": "ব্যাখ্যা: Winsome অর্থ মনোহর বা আকর্ষণীয়।" },
+            { "id": 71, "q": "Choose the synonym of 'Arduous'", "options": ["Easy", "Effortless", "Difficult", "Simple"], "answer": 2, "explain": "ব্যাখ্যা: Arduous অর্থ কঠিন বা শ্রমসাধ্য। এর সমার্থক শব্দ 'Difficult'।" },
+            { "id": 72, "q": "Choose the antonym of 'Benevolent'", "options": ["Kind", "Malevolent", "Generous", "Charitable"], "answer": 1, "explain": "ব্যাখ্যা: Benevolent অর্থ পরোপকারী বা দয়ালু। এর বিপরীত শব্দ 'Malevolent' যার অর্থ দূরাত্মা বা অশুভ।" },
+            { "id": 73, "q": "Choose the Bengali meaning of 'Celerity'", "options": ["ধীরতা", "গতি", "স্থিরতা", "নীরবতা"], "answer": 1, "explain": "ব্যাখ্যা: Celerity অর্থ ক্ষিপ্রতা বা দ্রুততা।" },
+            { "id": 74, "q": "Choose the synonym of 'Ephemeral'", "options": ["Lasting", "Permanent", "Fleeting", "Eternal"], "answer": 2, "explain": "ব্যাখ্যা: Ephemeral অর্থ ক্ষণস্থায়ী। এর সমার্থক শব্দ 'Fleeting'।" },
+            { "id": 75, "q": "Choose the antonym of 'Felicitous'", "options": ["Appropriate", "Inappropriate", "Auspicious", "Lucky"], "answer": 1, "explain": "ব্যাখ্যা: Felicitous অর্থ উপযুক্ত বা শুভ। এর বিপরীত শব্দ 'Inappropriate' যার অর্থ অনুপযুক্ত।" },
+            { "id": 76, "q": "Choose the Bengali meaning of 'Glib'", "options": ["অস্পষ্ট", "অসাবধান", "সাবলীল", "কঠোর"], "answer": 2, "explain": "ব্যাখ্যা: Glib অর্থ সাবলীল ও অনর্গল (প্রায়শই অসতর্কভাবে)।" },
+            { "id": 77, "q": "Choose the synonym of 'Hapless'", "options": ["Lucky", "Unfortunate", "Fortunate", "Happy"], "answer": 1, "explain": "ব্যাখ্যা: Hapless অর্থ দুর্ভাগ্য। এর সমার্থক শব্দ 'Unfortunate'।" },
+            { "id": 78, "q": "Choose the antonym of 'Idyllic'", "options": ["Pastoral", "Pleasant", "Unpleasant", "Perfect"], "answer": 2, "explain": "ব্যাখ্যা: Idyllic অর্থ মনোরম বা শান্তিপূর্ণ। এর বিপরীত শব্দ 'Unpleasant' যার অর্থ অপ্রীতিকর।" },
+            { "id": 79, "q": "Choose the Bengali meaning of 'Juxtapose'", "options": ["মিলিত করা", "পাশে রাখা", "দূরে রাখা", "বিচ্ছেদ করা"], "answer": 1, "explain": "ব্যাখ্যা: Juxtapose অর্থ পাশাপাশি রাখা (তুলনা করার জন্য)।" },
+            { "id": 80, "q": "Choose the synonym of 'Lethargic'", "options": ["Vigorous", "Energetic", "Sluggish", "Active"], "answer": 2, "explain": "ব্যাখ্যা: Lethargic অর্থ অলস বা নিস্তেজ। এর সমার্থক শব্দ 'Sluggish'।" },
+            { "id": 81, "q": "Choose the antonym of 'Mendacious'", "options": ["Deceitful", "Lying", "Honest", "False"], "answer": 2, "explain": "ব্যাখ্যা: Mendacious অর্থ মিথ্যাবাদী বা প্রতারক। এর বিপরীত শব্দ 'Honest' যার অর্থ সৎ।" },
+            { "id": 82, "q": "Choose the Bengali meaning of 'Nefarious'", "options": ["ভালো", "পুণ্যবান", "খারাপ বা দূরাত্মা", "সাধারণ"], "answer": 2, "explain": "ব্যাখ্যা: Nefarious অর্থ অত্যন্ত খারাপ বা দূরাত্মা।" },
+            { "id": 83, "q": "Choose the synonym of 'Onerous'", "options": ["Easy", "Burdensome", "Light", "Simple"], "answer": 1, "explain": "ব্যাখ্যা: Onerous অর্থ কষ্টসাধ্য বা ভারাক্রান্ত। এর সমার্থক শব্দ 'Burdensome'।" },
+            { "id": 84, "q": "Choose the antonym of 'Pellucid'", "options": ["Clear", "Translucent", "Opaque", "Transparent"], "answer": 2, "explain": "ব্যাখ্যা: Pellucid অর্থ স্বচ্ছ বা সুস্পষ্ট। এর বিপরীত শব্দ 'Opaque' যার অর্থ অস্বচ্ছ।" },
+            { "id": 85, "q": "Choose the Bengali meaning of 'Quagmire'", "options": ["পরিষ্কার জায়গা", "জলাভূমি", "কঠিন পরিস্থিতি", "শুকনো স্থান"], "answer": 2, "explain": "ব্যাখ্যা: Quagmire অর্থ একটি কঠিন বা জটিল পরিস্থিতি (আক্ষরিক অর্থে জলাভূমি)।" },
+            { "id": 86, "q": "Choose the synonym of 'Ruminate'", "options": ["Ignore", "Think", "Forget", "Dismiss"], "answer": 1, "explain": "ব্যাখ্যা: Ruminate অর্থ গভীরভাবে চিন্তা করা। এর সমার্থক শব্দ 'Think'।" },
+            { "id": 87, "q": "Choose the antonym of 'Stolid'", "options": ["Emotional", "Calm", "Placid", "Apathetic"], "answer": 0, "explain": "ব্যাখ্যা: Stolid অর্থ নির্বিকার বা উদাসীন। এর বিপরীত শব্দ 'Emotional' যার অর্থ আবেগপ্রবণ।" },
+            { "id": 88, "q": "Choose the Bengali meaning of 'Tenuous'", "options": ["শক্তিশালী", "পাতলা বা দুর্বল", "মোটা", "কঠোর"], "answer": 1, "explain": "ব্যাখ্যা: Tenuous অর্থ পাতলা বা দুর্বল, যা সহজে ভঙ্গুর।" },
+            { "id": 89, "q": "Choose the synonym of 'Vacuous'", "options": ["Intelligent", "Empty", "Full", "Cerebral"], "answer": 1, "explain": "ব্যাখ্যা: Vacuous অর্থ খালি বা বুদ্ধিমত্তা শূন্য। এর সমার্থক শব্দ 'Empty'।" },
+            { "id": 90, "q": "Choose the antonym of 'Volatile'", "options": ["Stable", "Unpredictable", "Unstable", "Changeable"], "answer": 0, "explain": "ব্যাখ্যা: Volatile অর্থ অস্থির বা পরিবর্তনশীল। এর বিপরীত শব্দ 'Stable' যার অর্থ স্থিতিশীল।" },
+            { "id": 91, "q": "Choose the Bengali meaning of 'Whet'", "options": ["তীক্ষ্ণ করা", "钝 করা", "নিঃশব্দ করা", "ভঙ্গ করা"], "answer": 0, "explain": "ব্যাখ্যা: Whet অর্থ ধারালো করা বা উত্তেজিত করা।" },
+            { "id": 92, "q": "Choose the synonym of 'Zephyr'", "options": ["Gale", "Storm", "Breeze", "Hurricane"], "answer": 2, "explain": "ব্যাখ্যা: Zephyr অর্থ মৃদু বাতাস। এর সমার্থক শব্দ 'Breeze'।" },
+            { "id": 93, "q": "Choose the antonym of 'Amorphous'", "options": ["Shapeless", "Formless", "Defined", "Vague"], "answer": 2, "explain": "ব্যাখ্যা: Amorphous অর্থ আকৃতিহীন। এর বিপরীত শব্দ 'Defined' যার অর্থ সুনির্দিষ্ট আকৃতিযুক্ত।" },
+            { "id": 94, "q": "Choose the Bengali meaning of 'Chicanery'", "options": ["সততা", "ধূর্ততা", "সরলতা", "সক্রিয়তা"], "answer": 1, "explain": "ব্যাখ্যা: Chicanery অর্থ ছলনা বা ধূর্ততা।" },
+            { "id": 95, "q": "Choose the synonym of 'Contrite'", "options": ["Remorseful", "Happy", "Proud", "Arrogant"], "answer": 0, "explain": "ব্যাখ্যা: Contrite অর্থ অনুতপ্ত। এর সমার্থক শব্দ 'Remorseful'।" },
+            { "id": 96, "q": "Choose the antonym of 'Disingenuous'", "options": ["Sincere", "Deceitful", "Insincere", "Dishonest"], "answer": 0, "explain": "ব্যাখ্যা: Disingenuous অর্থ অসরল বা অসৎ। এর বিপরীত শব্দ 'Sincere' যার অর্থ আন্তরিক।" },
+            { "id": 97, "q": "Choose the Bengali meaning of 'Egregious'", "options": ["সাধারণ", "গুরুতর বা জঘন্য", "সুন্দর", "ক্ষুদ্র"], "answer": 1, "explain": "ব্যাখ্যা: Egregious অর্থ অত্যন্ত খারাপ বা জঘন্য।" },
+            { "id": 98, "q": "Choose the synonym of 'Furtive'", "options": ["Open", "Secret", "Overt", "Blatant"], "answer": 1, "explain": "ব্যাখ্যা: Furtive অর্থ লুকানো বা গোপন। এর সমার্থক শব্দ 'Secret'।" },
+            { "id": 99, "q": "Choose the antonym of 'Gratuitous'", "options": ["Unnecessary", "Needed", "Pointless", "Wanton"], "answer": 1, "explain": "ব্যাখ্যা: Gratuitous অর্থ অপ্রয়োজনীয় বা বিনামূল্যে। এর বিপরীত শব্দ 'Needed' যার অর্থ প্রয়োজনীয়।" },
+            { "id": 100, "q": "Choose the Bengali meaning of 'Idiosyncrasy'", "options": ["সাধারণ বৈশিষ্ট্য", "স্বতন্ত্র বৈশিষ্ট্য", "সাধারণ আচরণ", "প্রথাগত নিয়ম"], "answer": 1, "explain": "ব্যাখ্যা: Idiosyncrasy অর্থ কোনো ব্যক্তির স্বতন্ত্র বৈশিষ্ট্য বা আচরণ।" },
+            { "id": 101, "q": "Choose the synonym of 'Jocose'", "options": ["Serious", "Humorous", "Solemn", "Grave"], "answer": 1, "explain": "ব্যাখ্যা: Jocose অর্থ কৌতুকপূর্ণ বা রসিক। এর সমার্থক শব্দ 'Humorous'।" },
+            { "id": 102, "q": "Choose the antonym of 'Kowtow'", "options": ["Flatter", "Rebel", "Adore", "Submit"], "answer": 1, "explain": "ব্যাখ্যা: Kowtow অর্থ নতজানু হওয়া বা তোষামোদ করা। এর বিপরীত শব্দ 'Rebel' যার অর্থ বিদ্রোহ করা।" },
+            { "id": 103, "q": "Choose the Bengali meaning of 'Loll'", "options": ["খাড়া করে দাঁড়ানো", "আরাম করে বসা বা শোয়া", "দৌড়ানো", "কাজ করা"], "answer": 1, "explain": "ব্যাখ্যা: Loll অর্থ আরাম করে বসা বা শোয়া।" },
+            { "id": 104, "q": "Choose the synonym of 'Malediction'", "options": ["Curse", "Blessing", "Praise", "Benediction"], "answer": 0, "explain": "ব্যাখ্যা: Malediction অর্থ অভিশাপ। এর সমার্থক শব্দ 'Curse'।" },
+            { "id": 105, "q": "Choose the antonym of 'Nefarious'", "options": ["Wicked", "Virtuous", "Evil", "Sinister"], "answer": 1, "explain": "ব্যাখ্যা: Nefarious অর্থ জঘন্য বা অতিশয় খারাপ। এর বিপরীত শব্দ 'Virtuous' যার অর্থ পুণ্যবান।" },
+            { "id": 106, "q": "Choose the Bengali meaning of 'Opaque'", "options": ["স্বচ্ছ", "অস্বচ্ছ", "পরিষ্কার", "ঝাপসা"], "answer": 1, "explain": "ব্যাখ্যা: Opaque অর্থ অস্বচ্ছ বা আলো প্রবেশে বাধা দেয়।" },
+            { "id": 107, "q": "Choose the synonym of 'Parsimonious'", "options": ["Generous", "Frugal", "Extravagant", "Wasteful"], "answer": 1, "explain": "ব্যাখ্যা: Parsimonious অর্থ কৃপণ বা মিতব্যয়ী। এর সমার্থক শব্দ 'Frugal'।" },
+            { "id": 108, "q": "Choose the antonym of 'Querulous'", "options": ["Complaining", "Contented", "Whining", "Grumbling"], "answer": 1, "explain": "ব্যাখ্যা: Querulous অর্থ অভিযোগকারী বা অসন্তুষ্ট। এর বিপরীত শব্দ 'Contented' যার অর্থ সন্তুষ্ট।" },
+            { "id": 109, "q": "Choose the Bengali meaning of 'Replete'", "options": ["খালি", "পরিপূর্ণ", "অপূর্ণ", "ভরা"], "answer": 1, "explain": "ব্যাখ্যা: Replete অর্থ সম্পূর্ণরূপে ভরা বা পরিপূর্ণ।" },
+            { "id": 110, "q": "Choose the synonym of 'Sycophant'", "options": ["Critic", "Flatterer", "Opponent", "Leader"], "answer": 1, "explain": "ব্যাখ্যা: Sycophant অর্থ চাটুকার বা তোষামোদকারী। এর সমার্থক শব্দ 'Flatterer'।" }
+        ];
+
+        // ----------------------------
+        // State
+        // ----------------------------
+        let userData = loadUserData();
+        let selectedIds = [];
+        let selectedMap = {}; // { qid: optionIndex }
+        let endTime = null; // epoch seconds
+        let submitted = false;
+        let timerHandle = null;
+
+        // ----------------------------
+        // DOM Elements
+        // ----------------------------
+        const examForm = qs('#exam');
+        const startBtn = qs('#startBtn');
+        const resetBtn = qs('#resetBtn');
+        const submitBtn = qs('#submitBtn');
+        const timerEl = qs('#timer');
+        const summaryEl = qs('#summary');
+        const introEl = qs('#intro');
+        const userProfileEl = qs('#user-profile');
+        const loginFormEl = qs('#login-form');
+        const userInfoEl = qs('#user-info');
+        const usernameInput = qs('#username-input');
+        const saveUsernameBtn = qs('#save-username-btn');
+        const displayUsername = qs('#display-username');
+        const displayRating = qs('#display-rating');
+        const displayRank = qs('#display-rank');
+
+        // ----------------------------
+        // User Management
+        // ----------------------------
+        function renderUserProfile() {
+            if (userData.username) {
+                loginFormEl.classList.add('hidden');
+                userInfoEl.classList.remove('hidden');
+                displayUsername.textContent = userData.username;
+                displayRating.textContent = userData.score.toFixed(2);
+            } else {
+                loginFormEl.classList.remove('hidden');
+                userInfoEl.classList.add('hidden');
+            }
+        }
+        
+        saveUsernameBtn.addEventListener('click', () => {
+            const username = usernameInput.value.trim();
+            if (username) {
+                userData.username = username;
+                saveUserData(userData);
+                renderUserProfile();
+            }
+        });
+
+        // ----------------------------
+        // Rendering
+        // ----------------------------
+        function renderQuestions(){
+            examForm.innerHTML = '';
+            const chosen = QUESTIONS.filter(q=>selectedIds.includes(q.id));
+            chosen.forEach((q,idx)=>{
+                const qWrap = document.createElement('section');
+                qWrap.className = 'question';
+                qWrap.setAttribute('data-qid', q.id);
+
+                qWrap.innerHTML = `
+                    <div class="q-head">
+                        <div class="q-num">${idx+1}</div>
+                        <div class="q-text">${q.q}</div>
+                    </div>
+                    <div class="options" role="radiogroup" aria-label="Question ${idx+1}">
+                        ${q.options.map((opt,i)=>{
+                            const checked = selectedMap[q.id] === i ? 'checked' : '';
+                            return `
+                                <label class="option">
+                                    <input type="radio" name="q_${q.id}" value="${i}" ${checked} aria-label="Option ${String.fromCharCode(65+i)}">
+                                    <div class="opt-text"><strong>(${String.fromCharCode(65+i)})</strong> ${opt}</div>
+                                </label>
+                            `;}).join('')}
+                    </div>
+                `;
+                examForm.appendChild(qWrap);
+            });
+            qsa('input[type=radio]', examForm).forEach(inp=>{
+                inp.addEventListener('change', e=>{
+                    const name = e.target.name;
+                    const qid = parseInt(name.split('_')[1],10);
+                    selectedMap[qid] = parseInt(e.target.value,10);
+                    persist();
+                });
+            });
+        }
+
+        function renderSummary(score, details){
+            const total = EXAM_SIZE;
+            const correct = details.filter(d=>d.correct).length;
+            const wrong = details.filter(d=>d.user!==null && !d.correct).length;
+            const unanswered = total - correct - wrong;
+            summaryEl.classList.remove('hidden');
+            summaryEl.innerHTML = `
+                <div style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
+                    <div style="display:flex; gap:12px; align-items:center">
+                        <span class="score-badge" title="Final Score">Score: ${score.toFixed(2)} / ${total.toFixed(2)}</span>
+                        <span class="chip correct-chip">✅ ${correct} সঠিক</span>
+                        <span class="chip wrong-chip">❌ ${wrong} ভুল</span>
+                        <span class="chip unanswered-chip">⏳ ${unanswered} উত্তরহীন</span>
+                    </div>
+                    <button onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"> Go to Bottom</button>
+                </div>
+            `;
+        }
+
+        function markReview(details){
+            details.forEach((d,idx)=>{
+                const sec = qs(`.question[data-qid="${d.id}"]`);
+                if(!sec) return;
+                const labels = qsa('.option', sec);
+                labels.forEach((lab,i)=>{
+                    lab.classList.remove('correct','wrong');
+                    if(i===d.answer) lab.classList.add('correct');
+                    if(d.user!==null && i===d.user && !d.correct) lab.classList.add('wrong');
+                    lab.querySelector('input').disabled = true;
+                });
+                const expContainer = document.createElement('div');
+                expContainer.className = 'explanation-container';
+                const statusDiv = document.createElement('div');
+                if (d.correct) {
+                    statusDiv.className = 'result-status correct-status';
+                    statusDiv.innerHTML = `<i class="fas fa-check-circle"></i> সঠিক উত্তর`;
+                } else if (d.user !== null) {
+                    statusDiv.className = 'result-status wrong-status';
+                    statusDiv.innerHTML = `<i class="fas fa-times-circle"></i> ভুল উত্তর`;
+                } else {
+                    statusDiv.className = 'result-status unanswered-status';
+                    statusDiv.innerHTML = `<i class="fas fa-question-circle"></i> উত্তরহীন`;
+                }
+                const exp = document.createElement('p');
+                exp.className = 'explain';
+                exp.textContent = d.explain;
+                expContainer.appendChild(statusDiv);
+                expContainer.appendChild(exp);
+                sec.appendChild(expContainer);
+            });
+        }
+
+        // ----------------------------
+        // Exam Flow
+        // ----------------------------
+        function startExam(){
+            if (!userData.username) {
+                alert('অনুগ্রহ করে প্রথমে আপনার ব্যবহারকারীর নাম (username) প্রবেশ করুন।');
+                window.scrollTo({top:0,behavior:'smooth'});
+                return;
+            }
+            if(selectedIds.length===0){
+                selectedIds = pick(QUESTIONS, EXAM_SIZE).map(q=>q.id);
+            }
+            endTime = Math.floor(Date.now()/1000) + EXAM_MINUTES*60;
+            submitted = false;
+            submitBtn.disabled = false;
+            introEl.classList.add('hidden');
+            summaryEl.classList.add('hidden');
+            renderQuestions();
+            persist();
+            startTimer();
+        }
+
+        function submitExam(reason='manual'){
+            if(submitted) return;
+            submitted = true;
+            stopTimer();
+            submitBtn.disabled = true;
+
+            const chosen = QUESTIONS.filter(q=>selectedIds.includes(q.id));
+            const details = chosen.map(q=>{
+                const user = (q.id in selectedMap) ? selectedMap[q.id] : null;
+                const correct = user===q.answer;
+                return { id:q.id, user, answer:q.answer, correct, explain:q.explain };
+            });
+
+            const correctCount = details.filter(d=>d.correct).length;
+            const wrongCount = details.filter(d=>d.user!==null && !d.correct).length;
+            const score = correctCount*1 + wrongCount*(-0.25);
+            
+            // Update user's score and save
+            if (userData.username) {
+                userData.score += score;
+                saveUserData(userData);
+                renderUserProfile();
+            }
+
+            renderSummary(score, details);
+            markReview(details);
+            persist();
+        }
+
+        function resetExam(){
+            stopTimer();
+            clearState();
+            selectedIds = [];
+            selectedMap = {};
+            endTime = null;
+            submitted = false;
+            timerEl.textContent = formatTime(EXAM_MINUTES*60);
+            submitBtn.disabled = true;
+            summaryEl.classList.add('hidden');
+            examForm.innerHTML = '';
+            introEl.classList.remove('hidden');
+            window.scrollTo({top:0,behavior:'smooth'});
+        }
+
+        // ----------------------------
+        // Timer
+        // ----------------------------
+        function startTimer(){
+            stopTimer();
+            tick();
+            timerHandle = setInterval(tick, 1000);
+        }
+        function stopTimer(){ if(timerHandle){ clearInterval(timerHandle); timerHandle=null; } }
+        function tick(){
+            const now = Math.floor(Date.now()/1000);
+            const remain = Math.max(0, endTime - now);
+            timerEl.textContent = formatTime(remain);
+            if(remain <= 60){ timerEl.style.background = '#2b0b0b'; timerEl.style.color = '#fecaca'; timerEl.style.borderColor = 'rgba(248,113,113,0.4)'; }
+            else if(remain <= 5*60){ timerEl.style.background = '#2b1a0b'; timerEl.style.color = '#fde68a'; timerEl.style.borderColor = 'rgba(245,158,11,0.4)'; }
+            else { timerEl.style.background = '#0b1a2f'; timerEl.style.color = '#bfdbfe'; timerEl.style.borderColor = 'rgba(96,165,250,0.3)'; }
+            if(remain===0){ submitExam('timeout'); }
+        }
+
+        // ----------------------------
+        // Persistence (sessionStorage)
+        // ----------------------------
+        function persist(){
+            const state = { selectedIds, selectedMap, endTime, submitted };
+            saveState(state);
+        }
+        function restore(){
+            const state = loadState();
+            if(!state) return;
+            selectedIds = state.selectedIds||[];
+            selectedMap = state.selectedMap||{};
+            endTime = state.endTime||null;
+            submitted = !!state.submitted;
+            if(selectedIds.length){
+                introEl.classList.add('hidden');
+                renderQuestions();
+                if(submitted){
+                    const chosen = QUESTIONS.filter(q=>selectedIds.includes(q.id));
+                    const details = chosen.map(q=>{
+                        const user = (q.id in selectedMap) ? selectedMap[q.id] : null;
+                        const correct = user===q.answer;
+                        return { id:q.id, user, answer:q.answer, correct, explain:q.explain };
+                    });
+                    const correctCount = details.filter(d=>d.correct).length;
+                    const wrongCount = details.filter(d=>d.user!==null && !d.correct).length;
+                    const score = correctCount*1 + wrongCount*(-0.25);
+                    submitBtn.disabled = true;
+                    renderSummary(score, details);
+                    markReview(details);
+                } else if(endTime){
+                    submitBtn.disabled = false;
+                    startTimer();
+                }
+            }
+        }
+        
+        // ----------------------------
+        // Wiring
+        // ----------------------------
+        startBtn.addEventListener('click', () => {
+            if(loadState() && !submitted){ if(!confirm('আপনি কি নতুন পরীক্ষা শুরু করতে চান? আপনার বর্তমান প্রচেষ্টা প্রতিস্থাপিত হবে।')) return; }
+            resetExam();
+            startExam();
+        });
+        resetBtn.addEventListener('click', resetExam);
+        submitBtn.addEventListener('click', (e)=>{ e.preventDefault(); submitExam('manual'); window.scrollTo({top:0,behavior:'smooth'}); });
+
+        window.addEventListener('beforeunload', (e)=>{
+            const state = loadState();
+            if(state && state.selectedIds && state.selectedIds.length && !state.submitted){
+                e.preventDefault(); e.returnValue = '';
+            }
+        });
+
+        // Initialize
+        (function init(){
+            timerEl.textContent = formatTime(EXAM_MINUTES*60);
+            renderUserProfile();
+            restore();
+        })();
+    </script>
+</body>
+</html>
