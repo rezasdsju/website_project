@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Vocabulary MCQ Exam</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*
+        * A note about the CSS:
+        * This CSS is a direct adaptation and expansion of the provided styles.
+        * It maintains the dark theme and uses a combination of flexbox and grid
+        * for responsive layouts, ensuring a consistent look and feel.
+        * The styles are all embedded within this single HTML file as requested.
+        */
+        :root {
+            --bg: #0f172a;
+            --card: #111827;
+            --muted: #94a3b8;
+            --text: #e5e7eb;
+            --accent: #22c55e;
+            --accent-weak: #16a34a;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #60a5fa;
+            --ring: rgba(34, 197, 94, 0.4);
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+            background: linear-gradient(180deg, #0b1220, var(--bg));
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 950px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        header {
+            width: 72%;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(2, 6, 23, 0.92), rgba(2, 6, 23, 0.6));
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 24px;
+        }
+
+        .brand {
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .pill {
+            padding: 6px 10px;
+            background: #0b1324;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 9999px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+        
+        .user-info {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            font-weight: 500;
+            margin-right: auto;
+            font-size: 14px;
+        }
+
+        .user-info i {
+            color: var(--info);
+        }
+
+        .user-score {
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 8px;
+            background: #0b1a2f;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            color: #bfdbfe;
+            font-size: 13px;
+        }
+
+        .timer {
+            font-variant-numeric: tabular-nums;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 10px;
+            background: #0b1a2f;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            color: #bfdbfe;
+        }
+
+        .controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            background: #0b1220;
+            color: var(--text);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            border-color: rgba(148, 163, 184, 0.35);
+        }
+
+        button.primary {
+            background: linear-gradient(180deg, var(--accent), var(--accent-weak));
+            border-color: transparent;
+            color: #052e16;
+            transition: all 0.2s ease;
+        }
+
+        button.primary:hover {
+            filter: brightness(0.98);
+            transform: translateY(-1px);
+        }
+
+        .card {
+            background: #0b1220;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .intro, .login-card, .rank-card {
+            padding: 20px;
+            margin-top: 16px;
+        }
+        
+        .login-card h2, .intro h2, .rank-card h2 {
+            margin: 0 0 12px;
+        }
+
+        .intro p, .login-card p {
+            color: var(--muted);
+            margin: 8px 0 0;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            background: #0b1324;
+            color: var(--text);
+            font-size: 16px;
+        }
+        
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--info);
+            box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.4);
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .meta .chip {
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: #091225;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            color: #cbd5e1
+        }
+
+        .question {
+            padding: 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .q-head {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .q-num {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: grid;
+            place-content: center;
+            background: #0b1a2f;
+            color: #bfdbfe;
+            font-weight: 700;
+            border: 1px solid rgba(96, 165, 250, 0.35)
+        }
+
+        .q-text {
+            font-weight: 600;
+            line-height: 1.4
+        }
+
+        .options {
+            margin-top: 12px;
+            display: grid;
+            gap: 10px;
+        }
+
+        /* Custom radio style */
+        .option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            border-radius: 12px;
+            cursor: pointer;
+            background: #0a1020;
+            transition: all 0.2s ease;
+        }
+
+        .option:hover {
+            border-color: rgba(148, 163, 184, 0.32)
+        }
+
+        .option input {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #93c5fd;
+            margin-top: 3px;
+            display: inline-grid;
+            place-content: center;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .option input::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            background: #60a5fa;
+        }
+
+        .option input:checked::before {
+            transform: scale(1);
+        }
+
+        .option .opt-text {
+            flex: 1;
+        }
+
+        .actions {
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(2, 6, 23, 0), rgba(2, 6, 23, 0.9) 25%, rgba(2, 6, 23, 1));
+            padding: 16px 24px;
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(148, 163, 184, 0.15);
+        }
+
+        .result {
+            padding: 18px 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.12);
+            background: #081427;
+        }
+
+        .result strong {
+            color: #bbf7d0
+        }
+
+        .legend {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            background: #0b1324;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 9999px
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%
+        }
+
+        .dot.correct {
+            background: var(--accent)
+        }
+
+        .dot.wrong {
+            background: var(--danger)
+        }
+
+        .dot.unanswered {
+            background: #facc15;
+        }
+
+        .unanswered-chip {
+            color: #facc15;
+            border-color: rgba(250, 204, 21, 0.4);
+        }
+
+        .correct-chip {
+            color: #22c55e;
+            border-color: rgba(250, 204, 21, 0.4);
+        }
+
+        .wrong-chip {
+            color: #ef4444;
+            border-color: rgba(250, 204, 21, 0.4);
+        }
+
+
+        .correct {
+            border-color: rgba(34, 197, 94, 0.6) !important;
+            background: rgba(34, 197, 94, 0.06)
+        }
+
+        .wrong {
+            border-color: rgba(239, 68, 68, 0.6) !important;
+            background: rgba(239, 68, 68, 0.06)
+        }
+
+        /* Enhanced explanation styling */
+        .explanation-container {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        .result-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .correct-status {
+            color: var(--accent);
+        }
+
+        .wrong-status {
+            color: var(--danger);
+        }
+
+        .unanswered-status {
+            color: #facc15;
+        }
+
+        .explain {
+            color: #cbd5e1;
+            font-size: 14px;
+            opacity: 0.95;
+            margin: 0;
+        }
+
+        .hidden {
+            display: none !important
+        }
+
+        .mute {
+            color: var(--muted)
+        }
+
+        .footer-note {
+            text-align: center;
+            color: var(--muted);
+            margin: 16px 0 40px;
+            font-size: 13px
+        }
+
+        .score-badge {
+            font-weight: 800;
+            color: #052e16;
+            background: linear-gradient(180deg, #86efac, #22c55e);
+            border-radius: 9999px;
+            padding: 6px 12px;
+            border: 1px solid var(--accent-weak)
+        }
+        
+        .rank-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+        }
+        
+        .rank-table th, .rank-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        .rank-table th {
+            background: #0b1324;
+            font-weight: 600;
+            color: var(--muted);
+        }
+        
+        .rank-table tr.user-row {
+            background: rgba(96, 165, 250, 0.1);
+            color: #bfdbfe;
+            font-weight: 600;
+        }
+        
+        .rank-table td:first-child {
+            font-weight: 700;
+        }
+
+        @media (max-width:640px) {
+            .q-head {
+                flex-direction: column;
+            }
+
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            header {
+                width: 100%;
+            }
+
+            .header-inner {
+                flex-wrap: wrap;
+                padding: 10px 16px;
+            }
+            
+            .user-info {
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+            }
+            
+            .controls {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-inner container">
+            <div class="brand">📝 English Vocabulary Exam</div>
+            <div id="user-display" class="user-info hidden">
+                <i class="fas fa-user-circle"></i>
+                <span id="username-display"></span>
+                <span id="user-score-display" class="user-score">Score: 0</span>
+            </div>
+            <div class="pill">10 Questions • 10 Minutes • +1 / −0.25 / 0</div>
+            <div id="timer" class="timer" aria-live="polite">10:00</div>
+            <div class="controls">
+                <button id="startBtn" class="primary">Start Exam</button>
+                <button id="resetBtn" title="Start a new exam">New Exam</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="login-section" class="card login-card">
+            <h2>Welcome to the English Vocabulary Exam</h2>
+            <p class="mute">Please enter a username to start your journey and track your progress. Your score will be saved automatically.</p>
+            <form id="login-form" class="login-form">
+                <input type="text" id="username-input" placeholder="Enter your username" required>
+                <button type="submit" class="primary">Start My Journey</button>
+            </form>
+        </section>
+        
+        <section class="card intro hidden" id="intro">
+            <h2>Instructions</h2>
+            <ul>
+                <li><strong>10 questions</strong> will be drawn randomly from a pool of over 200.</li>
+                <li>All questions are on <strong>English to Bengali vocabulary</strong>.</li>
+                <li>Scoring: <strong>Correct +1, Wrong −0.25, Unanswered 0</strong>.</li>
+                <li>Time limit: <strong>10 minutes</strong>. The exam will auto-submit when time ends.</li>
+                <li>All questions appear on one page — scroll to navigate.</li>
+            </ul>
+        </section>
+
+        <section id="rank-section" class="card rank-card hidden">
+            <h2>🥇 Leaderboard</h2>
+            <table class="rank-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>User</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody id="rank-table-body">
+                </tbody>
+            </table>
+        </section>
+
+        <div id="summary" class="card result hidden" role="status" aria-live="polite"></div>
+
+        <form id="exam" class="card" autocomplete="off"></form>
+
+        <div class="actions hidden" id="actions-container">
+            <div class="legend">
+                <span><span class="dot correct"></span> Correct</span>
+                <span><span class="dot wrong"></span> Wrong</span>
+                <span><span class="dot unanswered"></span> Unanswered</span>
+            </div>
+            <button id="submitBtn" class="primary" disabled>Submit Exam</button>
+        </div>
+
+    </main>
+
+    <script>
+        // ----------------------------
+        // Global Constants & Utilities
+        // ----------------------------
+        const EXAM_SIZE = 10;
+        const EXAM_MINUTES = 10;
+        const STORAGE_PREFIX = 'vocab_exam_';
+        const USER_KEY = STORAGE_PREFIX + 'user';
+        const EXAM_STATE_KEY = STORAGE_PREFIX + 'state';
+        const LEADERBOARD_KEY = STORAGE_PREFIX + 'leaderboard';
+
+        const qs = (sel, el = document) => el.querySelector(sel);
+        const qsa = (sel, el = document) => [...el.querySelectorAll(sel)];
+        const pick = (arr, n) => {
+            const a = [...arr];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a.slice(0, n);
+        };
+        const formatTime = (s) => {
+            const m = Math.floor(s / 60).toString().padStart(2, '0');
+            const r = Math.floor(s % 60).toString().padStart(2, '0');
+            return `${m}:${r}`;
+        };
+
+        function saveToStorage(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        function loadFromStorage(key) {
+            try {
+                return JSON.parse(localStorage.getItem(key) || 'null');
+            } catch {
+                return null
+            }
+        }
+
+        function removeFromStorage(key) {
+            localStorage.removeItem(key);
+        }
+        
+        function getUsername() {
+            const userData = loadFromStorage(USER_KEY);
+            return userData ? userData.username : null;
+        }
+
+        // ----------------------------
+        // Question Pool (English to Bengali)
+        // More than 200 questions, as requested.
+        // Each question: { id, q, options:[], answer: index, explain }
+        // ----------------------------
+        const QUESTIONS = [{
+            "id": 1,
+            "q": "Choose the Bengali meaning of: 'Abundant'",
+            "options": ["কঠিন", "প্রচুর", "বিরল", "দুর্বল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Abundant শব্দের অর্থ প্রচুর বা যথেষ্ট পরিমাণে আছে এমন। তাই সঠিক উত্তর হলো 'প্রচুর'।"
+        }, {
+            "id": 2,
+            "q": "Choose the Bengali meaning of: 'Benevolent'",
+            "options": ["হিংস্র", "দয়ালু", "নকল", "ক্ষুদ্র"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Benevolent শব্দের অর্থ দয়ালু, পরোপকারী। তাই সঠিক উত্তর হলো 'দয়ালু'।"
+        }, {
+            "id": 3,
+            "q": "Choose the Bengali meaning of: 'Candid'",
+            "options": ["ভীতু", "অস্পষ্ট", "স্বচ্ছ", "আন্তরিক"],
+            "answer": 3,
+            "explain": "ব্যাখ্যা: Candid মানে হচ্ছে অকপট, খোলা মনের বা আন্তরিক। এটি ব্যক্তির সততা প্রকাশ করে।"
+        }, {
+            "id": 4,
+            "q": "Choose the Bengali meaning of: 'Diligent'",
+            "options": ["অলস", "উদাসীন", "পরিশ্রমী", "নিয়ন্ত্রণহীন"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Diligent শব্দের বাংলা অর্থ হলো পরিশ্রমী বা অধ্যবসায়ী। এটি কঠোর পরিশ্রমের মাধ্যমে কাজ করার মনোভাবকে বোঝায়।"
+        }, {
+            "id": 5,
+            "q": "Choose the Bengali meaning of: 'Elusive'",
+            "options": ["সহজলভ্য", "দুর্বোধ্য", "স্পষ্ট", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Elusive শব্দের অর্থ হলো যা সহজে ধরা বা বোঝা যায় না, অর্থাৎ দুর্বোধ্য। এটি প্রায়শই কোনো সমস্যার সমাধানের ক্ষেত্রে ব্যবহৃত হয়।"
+        }, {
+            "id": 6,
+            "q": "Choose the Bengali meaning of: 'Futile'",
+            "options": ["ফলপ্রসূ", "প্রয়োজনীয়", "ব্যর্থ", "সহজ"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Futile শব্দের অর্থ হলো নিরর্থক বা ব্যর্থ। এটি এমন কোনো প্রচেষ্টাকে বোঝায় যা কোনো ফল দেবে না।"
+        }, {
+            "id": 7,
+            "q": "Choose the Bengali meaning of: 'Garrulous'",
+            "options": ["বাকপটু", "অল্পভাষী", "চুপচাপ", "সঞ্চয়ী"],
+            "answer": 0,
+            "explain": "ব্যাখ্যা: Garrulous মানে হচ্ছে অতিমাত্রায় বাচাল বা কথা বলতে ভালোবাসে এমন।"
+        }, {
+            "id": 8,
+            "q": "Choose the Bengali meaning of: 'Haphazard'",
+            "options": ["পরিকল্পিত", "অগোছালো", "ধারাবাহিক", "নিয়মতান্ত্রিক"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Haphazard শব্দের অর্থ হলো এলোমেলো, যথেচ্ছ বা অগোছালো।"
+        }, {
+            "id": 9,
+            "q": "Choose the Bengali meaning of: 'Incessant'",
+            "options": ["বিরতিহীন", "নিয়মিত", "বিরল", "সাময়িক"],
+            "answer": 0,
+            "explain": "ব্যাখ্যা: Incessant শব্দের অর্থ হলো অবিরাম, বিরতিহীন বা ক্রমাগত।"
+        }, {
+            "id": 10,
+            "q": "Choose the Bengali meaning of: 'Jubilant'",
+            "options": ["বিষণ্ণ", "আনন্দিত", "ভীত", "শান্ত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Jubilant মানে হচ্ছে অত্যন্ত আনন্দিত বা উল্লাসিত।"
+        }, {
+            "id": 11,
+            "q": "Choose the Bengali meaning of: 'Keen'",
+            "options": ["উদাসীন", "ধারালো", "আগ্রহী", "দুর্বল"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Keen মানে হলো আগ্রহী, তীব্র বা প্রখর। যেমন- 'He is keen to learn new things'."
+        }, {
+            "id": 12,
+            "q": "Choose the Bengali meaning of: 'Lament'",
+            "options": ["আনন্দ করা", "হতাশ হওয়া", "বিলাপ করা", "প্রংশসা করা"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Lament শব্দের অর্থ হলো শোক প্রকাশ করা বা বিলাপ করা।"
+        }, {
+            "id": 13,
+            "q": "Choose the Bengali meaning of: 'Mitigate'",
+            "options": ["বৃদ্ধি করা", "প্রশমিত করা", "শক্ত করা", "বাদ দেওয়া"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Mitigate মানে হলো কোনো কিছুর তীব্রতা বা কষ্ট কমানো বা প্রশমিত করা।"
+        }, {
+            "id": 14,
+            "q": "Choose the Bengali meaning of: 'Novice'",
+            "options": ["বিশেষজ্ঞ", "শুরুকারী", "জ্ঞানী", "অভিজ্ঞ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Novice শব্দের অর্থ হলো কোনো কাজে নতুন বা অনভিজ্ঞ ব্যক্তি, অর্থাৎ শুরুকারী।"
+        }, {
+            "id": 15,
+            "q": "Choose the Bengali meaning of: 'Ominous'",
+            "options": ["শুভ", "অশুভ", "শান্ত", "উজ্জ্বল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ominous মানে হচ্ছে কোনো খারাপ কিছু ঘটার ইঙ্গিত দেওয়া বা অশুভ।"
+        }, {
+            "id": 16,
+            "q": "Choose the Bengali meaning of: 'Pensive'",
+            "options": ["খেয়ালী", "বিমর্ষ", "উজ্জ্বল", "প্রফুল্ল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Pensive শব্দের অর্থ হলো গভীর চিন্তায় মগ্ন বা বিমর্ষ।"
+        }, {
+            "id": 17,
+            "q": "Choose the Bengali meaning of: 'Quell'",
+            "options": ["জ্বালিয়ে দেওয়া", "দমন করা", "ছড়িয়ে দেওয়া", "বৃদ্ধি করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Quell মানে হলো কোনো বিদ্রোহ বা অনুভূতিকে দমন করা।"
+        }, {
+            "id": 18,
+            "q": "Choose the Bengali meaning of: 'Resilient'",
+            "options": ["দুর্বল", "নমনীয়", "স্থিতিস্থাপক", "দৃঢ়"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Resilient শব্দের অর্থ হলো স্থিতিস্থাপক বা সহজে পূর্বাবস্থায় ফিরে আসতে পারে এমন।"
+        }, {
+            "id": 19,
+            "q": "Choose the Bengali meaning of: 'Serene'",
+            "options": ["ঝড়পূর্ণ", "শান্ত", "কোলাহলপূর্ণ", "অশান্ত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Serene মানে হলো শান্ত, নির্জন বা নির্মল।"
+        }, {
+            "id": 20,
+            "q": "Choose the Bengali meaning of: 'Trivial'",
+            "options": ["গুরুত্বপূর্ণ", "ক্ষুদ্র", "জটিল", "প্রয়োজনীয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Trivial শব্দের অর্থ হলো তুচ্ছ বা গুরুত্বহীন, অর্থাৎ ক্ষুদ্র।"
+        }, {
+            "id": 21,
+            "q": "Choose the Bengali meaning of: 'Ubiquitous'",
+            "options": ["বিরল", "সর্বত্র বিদ্যমান", "গোপন", "অকার্যকর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ubiquitous শব্দের অর্থ হলো সর্বত্র বিদ্যমান। যেমন- 'Smartphones are now ubiquitous'."
+        }, {
+            "id": 22,
+            "q": "Choose the Bengali meaning of: 'Vacillate'",
+            "options": ["স্থির থাকা", "আন্দোলিত হওয়া", "আস্থা রাখা", "গতিশীল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Vacillate মানে হলো সিদ্ধান্ত নিতে দ্বিধা করা বা দোদুল্যমান হওয়া।"
+        }, {
+            "id": 23,
+            "q": "Choose the Bengali meaning of: 'Wane'",
+            "options": ["বৃদ্ধি পাওয়া", "হ্রাস পাওয়া", "দৃঢ় হওয়া", "নষ্ট হওয়া"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Wane শব্দের অর্থ হলো কোনো কিছু ধীরে ধীরে কমে যাওয়া বা হ্রাস পাওয়া।"
+        }, {
+            "id": 24,
+            "q": "Choose the Bengali meaning of: 'Zealous'",
+            "options": ["উদাসীন", "উৎসাহী", "বিরক্ত", "শান্ত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Zealous মানে হলো অত্যন্ত উৎসাহী বা উদ্যমী।"
+        }, {
+            "id": 25,
+            "q": "Choose the Bengali meaning of: 'Acquiesce'",
+            "options": ["প্রতিরোধ করা", "সন্মতি দেওয়া", "দ্বিধা করা", "অস্বীকার করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Acquiesce মানে হলো অনিচ্ছাসত্ত্বেও কোনো কিছুতে সন্মতি দেওয়া।"
+        }, {
+            "id": 26,
+            "q": "Choose the Bengali meaning of: 'Berate'",
+            "options": ["প্রশংসা করা", "তিরস্কার করা", "সাহায্য করা", "প্ররোচিত করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Berate মানে হলো কঠোরভাবে তিরস্কার বা ভর্ৎসনা করা।"
+        }, {
+            "id": 27,
+            "q": "Choose the Bengali meaning of: 'Capricious'",
+            "options": ["সুচিন্তিত", "খামখেয়ালী", "নিয়মিত", "অবিচল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Capricious শব্দের অর্থ হলো খামখেয়ালী বা অস্থির। এটি এমন ব্যক্তিকে বোঝায় যার আচরণ প্রায়শই অপ্রত্যাশিত।"
+        }, {
+            "id": 28,
+            "q": "Choose the Bengali meaning of: 'Deleterious'",
+            "options": ["ক্ষতিকর", "উপকারী", "স্বাস্থ্যকর", "নিরাপদ"],
+            "answer": 0,
+            "explain": "ব্যাখ্যা: Deleterious মানে হলো ক্ষতিকর বা অনিষ্টকর।"
+        }, {
+            "id": 29,
+            "q": "Choose the Bengali meaning of: 'Ephemeral'",
+            "options": ["স্থায়ী", "ক্ষণস্থায়ী", "পুরাতন", "নতুন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ephemeral মানে হলো ক্ষণস্থায়ী বা অল্প সময়ের জন্য বিদ্যমান।"
+        }, {
+            "id": 30,
+            "q": "Choose the Bengali meaning of: 'Fastidious'",
+            "options": ["অযত্নশীল", "নিয়মানুবর্তী", "অসাধারণ", "নগণ্য"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Fastidious মানে হলো যেকোনো বিষয়ে খুঁতখুঁতে বা অতি সতর্ক।"
+        }, {
+            "id": 31,
+            "q": "Choose the Bengali meaning of: 'Gregarious'",
+            "options": ["অন্তর্মুখী", "বহির্মুখী", "সংযত", "নিঃসঙ্গ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Gregarious মানে হলো যে অন্যের সঙ্গ পছন্দ করে বা সামাজিক। এটি সাধারণত বহির্মুখী ব্যক্তিদের জন্য ব্যবহৃত হয়।"
+        }, {
+            "id": 32,
+            "q": "Choose the Bengali meaning of: 'Harangue'",
+            "options": ["প্রশংসা করা", "কঠোর বক্তৃতা দেওয়া", "নীরব থাকা", "প্রশ্ন করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Harangue মানে হলো একটি কঠোর, আক্রমনাত্মক বা দীর্ঘ বক্তৃতা দেওয়া।"
+        }, {
+            "id": 33,
+            "q": "Choose the Bengali meaning of: 'Impecunious'",
+            "options": ["ধনী", "দরিদ্র", "উদার", "সঞ্চয়ী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Impecunious মানে হলো অত্যন্ত দরিদ্র বা যার আর্থিক অবস্থা খারাপ।"
+        }, {
+            "id": 34,
+            "q": "Choose the Bengali meaning of: 'Jettison'",
+            "options": ["রক্ষা করা", "ফেলে দেওয়া", "জড়িয়ে রাখা", "গ্রহণ করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Jettison মানে হলো অপ্রয়োজনীয় জিনিস ফেলে দেওয়া।"
+        }, {
+            "id": 35,
+            "q": "Choose the Bengali meaning of: 'Kowtow'",
+            "options": ["তিরস্কার করা", "অবাধ্য হওয়া", "অতিশয় সম্মান দেখানো", "সাহায্য করা"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Kowtow মানে হলো অত্যন্ত বিনয়ী আচরণ করা বা অতিশয় সম্মান প্রদর্শন করা।"
+        }, {
+            "id": 36,
+            "q": "Choose the Bengali meaning of: 'Lackadaisical'",
+            "options": ["উৎসাহী", "উদাসীন", "সক্রিয়", "আগ্রহী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Lackadaisical মানে হলো উৎসাহ বা আগ্রহের অভাব, অর্থাৎ উদাসীন।"
+        }, {
+            "id": 37,
+            "q": "Choose the Bengali meaning of: 'Mellifluous'",
+            "options": ["কর্কশ", "মধুর", "অস্পষ্ট", "অপ্রিয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Mellifluous শব্দের অর্থ হলো মিষ্টি বা মধুর। এটি সাধারণত সুর বা কণ্ঠের ক্ষেত্রে ব্যবহৃত হয়।"
+        }, {
+            "id": 38,
+            "q": "Choose the Bengali meaning of: 'Nefarious'",
+            "options": ["ধার্মিক", "দুষ্ট", "সৎ", "নির্ভরযোগ্য"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Nefarious মানে হলো অত্যন্ত দুষ্ট বা অসৎ, সাধারণত কোনো অপরাধমূলক কাজের জন্য ব্যবহৃত হয়।"
+        }, {
+            "id": 39,
+            "q": "Choose the Bengali meaning of: 'Oblivious'",
+            "options": ["সচেতন", "অসচেতন", "সাবধান", "স্মরণীয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Oblivious মানে হলো কোনো কিছু সম্পর্কে সম্পূর্ণ অজ্ঞ বা অসচেতন।"
+        }, {
+            "id": 40,
+            "q": "Choose the Bengali meaning of: 'Perfunctory'",
+            "options": ["আন্তরিক", "উদাসীন", "সতর্ক", "দ্রুত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Perfunctory মানে হলো কোন কাজ দ্রুত এবং আগ্রহ ছাড়া করা, অর্থাৎ উদাসীনভাবে করা।"
+        }, {
+            "id": 41,
+            "q": "Choose the Bengali meaning of: 'Quixotic'",
+            "options": ["বাস্তববাদী", "আদর্শবাদী", "ভীতু", "কঠিন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Quixotic মানে হলো অবাস্তব বা আদর্শবাদী, যা সাধারণত বাস্তবে সম্ভব নয়।"
+        }, {
+            "id": 42,
+            "q": "Choose the Bengali meaning of: 'Rancor'",
+            "options": ["বন্ধুত্ব", "ঘৃণা", "সহযোগিতা", "আনন্দ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Rancor মানে হলো গভীর বা স্থায়ী ঘৃণা বা বিদ্বেষ।"
+        }, {
+            "id": 43,
+            "q": "Choose the Bengali meaning of: 'Salubrious'",
+            "options": ["অস্বাস্থ্যকর", "স্বাস্থ্যকর", "বিষাক্ত", "সাধারণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Salubrious মানে হলো স্বাস্থ্যকর।"
+        }, {
+            "id": 44,
+            "q": "Choose the Bengali meaning of: 'Trepidation'",
+            "options": ["সাহস", "ভয়", "আনন্দ", "শান্তি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Trepidation মানে হলো ভয় বা উদ্বেগ।"
+        }, {
+            "id": 45,
+            "q": "Choose the Bengali meaning of: 'Truncate'",
+            "options": ["বৃদ্ধি করা", "ছোট করা", "জোড়া লাগানো", "মুছে ফেলা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Truncate মানে হলো কোনো কিছুর দৈর্ঘ্য ছোট করা বা ছেঁটে ফেলা।"
+        }, {
+            "id": 46,
+            "q": "Choose the Bengali meaning of: 'Veracity'",
+            "options": ["মিথ্যা", "সত্যতা", "কল্পনা", "ত্রুটি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Veracity মানে হলো সত্যতা বা নির্ভুলতা।"
+        }, {
+            "id": 47,
+            "q": "Choose the Bengali meaning of: 'Wily'",
+            "options": ["সৎ", "ধূর্ত", "বোকা", "নির্বোধ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Wily মানে হলো চালাক বা ধূর্ত।"
+        }, {
+            "id": 48,
+            "q": "Choose the Bengali meaning of: 'Abscond'",
+            "options": ["প্রকাশ করা", "পালিয়ে যাওয়া", "স্থির থাকা", "ফিরে আসা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Abscond মানে হলো গোপনভাবে বা লুকিয়ে পালিয়ে যাওয়া।"
+        }, {
+            "id": 49,
+            "q": "Choose the Bengali meaning of: 'Banal'",
+            "options": ["স্বচ্ছ", "সাধারণ", "নতুন", "বৈচিত্র্যপূর্ণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Banal মানে হলো সাধারণ বা গতানুগতিক, যা নতুনত্বহীন।"
+        }, {
+            "id": 50,
+            "q": "Choose the Bengali meaning of: 'Cajole'",
+            "options": ["ভীতি প্রদর্শন করা", "মিষ্টি কথায় রাজি করানো", "ধমকানো", "অগ্রাহ্য করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Cajole মানে হলো মিষ্টি কথায় কাউকে রাজি করানো বা ফুসলানো।"
+        }, {
+            "id": 51,
+            "q": "Choose the Bengali meaning of: 'Demeanor'",
+            "options": ["চেহারা", "আচরণ", "ক্ষমতা", "জ্ঞান"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Demeanor মানে হলো একজনের বাহ্যিক আচরণ বা ব্যবহার।"
+        }, {
+            "id": 52,
+            "q": "Choose the Bengali meaning of: 'Eccentric'",
+            "options": ["সাধারণ", "অদ্ভুত", "নিয়মতান্ত্রিক", "পরিচিত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Eccentric মানে হলো অদ্ভুত বা অস্বাভাবিক আচরণ করে এমন ব্যক্তি।"
+        }, {
+            "id": 53,
+            "q": "Choose the Bengali meaning of: 'Fervent'",
+            "options": ["ঠান্ডা", "উষ্ণ", "আবেগপ্রবণ", "নিয়মতান্ত্রিক"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Fervent মানে হলো অত্যন্ত আবেগপ্রবণ বা তীব্র অনুভূতিপূর্ণ।"
+        }, {
+            "id": 54,
+            "q": "Choose the Bengali meaning of: 'Gauzy'",
+            "options": ["ঘন", "পাতলা", "মোটা", "শক্ত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Gauzy মানে হলো খুব পাতলা এবং প্রায় স্বচ্ছ।"
+        }, {
+            "id": 55,
+            "q": "Choose the Bengali meaning of: 'Hackneyed'",
+            "options": ["নতুন", "পুরাতন", "ব্যবহৃত", "সাধারণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Hackneyed মানে হলো এমন কোনো শব্দ বা ধারণা যা অতিরিক্ত ব্যবহারের কারণে তার নতুনত্ব বা আকর্ষণীয়তা হারিয়েছে।"
+        }, {
+            "id": 56,
+            "q": "Choose the Bengali meaning of: 'Inundate'",
+            "options": ["শুকিয়ে ফেলা", "ডুবিয়ে দেওয়া", "সংকুচিত করা", "আড়াল করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Inundate মানে হলো বন্যা বা অতিরিক্ত পরিমাণ জিনিস দিয়ে ডুবিয়ে দেওয়া।"
+        }, {
+            "id": 57,
+            "q": "Choose the Bengali meaning of: 'Jocund'",
+            "options": ["বিষণ্ণ", "আনন্দময়", "বিরক্ত", "ভয়ঙ্কর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Jocund মানে হলো প্রফুল্ল বা আনন্দময়।"
+        }, {
+            "id": 58,
+            "q": "Choose the Bengali meaning of: 'Languid'",
+            "options": ["শক্তিশালী", "অলস", "উজ্জ্বল", "সক্রিয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Languid মানে হলো অলস বা দুর্বল।"
+        }, {
+            "id": 59,
+            "q": "Choose the Bengali meaning of: 'Meticulous'",
+            "options": ["অগোছালো", "খুঁতখুঁতে", "সহজ", "সাধারণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Meticulous মানে হলো খুব সতর্ক বা খুঁতখুঁতে।"
+        }, {
+            "id": 60,
+            "q": "Choose the Bengali meaning of: 'Nonchalant'",
+            "options": ["অবিচলিত", "উদাসীন", "চিন্তিত", "সচেতন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Nonchalant মানে হলো শান্ত এবং উদাসীন।"
+        }, {
+            "id": 61,
+            "q": "Choose the Bengali meaning of: 'Obsequious'",
+            "options": ["স্বাধীন", "চাটুকার", "বিরক্ত", "সাহসী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Obsequious মানে হলো অতিশয় চাটুকার বা বাধ্য।"
+        }, {
+            "id": 62,
+            "q": "Choose the Bengali meaning of: 'Pernicious'",
+            "options": ["উপকারী", "ক্ষতিকর", "আকর্ষণীয়", "সঞ্চয়ী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Pernicious মানে হলো অত্যন্ত ক্ষতিকর বা বিধ্বংসী।"
+        }, {
+            "id": 63,
+            "q": "Choose the Bengali meaning of: 'Querulous'",
+            "options": ["সন্তুষ্ট", "বিরক্তিকর", "শান্ত", "দয়ালু"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Querulous মানে হলো অভিযোগপ্রবণ বা বিরক্তিপূর্ণ।"
+        }, {
+            "id": 64,
+            "q": "Choose the Bengali meaning of: 'Repudiate'",
+            "options": ["গ্রহণ করা", "প্রত্যাখ্যান করা", "সমর্থন করা", "বিশ্বাস করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Repudiate মানে হলো কোনো কিছুকে প্রত্যাখ্যান করা বা অস্বীকার করা।"
+        }, {
+            "id": 65,
+            "q": "Choose the Bengali meaning of: 'Sycophant'",
+            "options": ["নেতা", "চাটুকার", "শত্রু", "বন্ধু"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Sycophant মানে হলো যে ব্যক্তি ক্ষমতাশালী ব্যক্তির প্রশংসা করে সুবিধা লাভের জন্য, অর্থাৎ চাটুকার।"
+        }, {
+            "id": 66,
+            "q": "Choose the Bengali meaning of: 'Taciturn'",
+            "options": ["বাকপটু", "অল্পভাষী", "উদাসীন", "সক্রিয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Taciturn মানে হলো অল্পভাষী বা নীরব।"
+        }, {
+            "id": 67,
+            "q": "Choose the Bengali meaning of: 'Vacuous'",
+            "options": ["বুদ্ধিমান", "অর্থহীন", "গুরুত্বপূর্ণ", "চিন্তাশীল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Vacuous মানে হলো বুদ্ধিহীন বা অর্থহীন।"
+        }, {
+            "id": 68,
+            "q": "Choose the Bengali meaning of: 'Wistful'",
+            "options": ["হতাশ", "ব্যাকুল", "আনন্দিত", "উদাসীন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Wistful মানে হলো বিষণ্ণ বা আকাঙ্ক্ষাপূর্ণ।"
+        }, {
+            "id": 69,
+            "q": "Choose the Bengali meaning of: 'Aplomb'",
+            "options": ["দ্বিধা", "আত্মবিশ্বাস", "ভয়", "দুর্ভাগ্য"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Aplomb মানে হলো স্থিরতা এবং আত্মবিশ্বাস।"
+        }, {
+            "id": 70,
+            "q": "Choose the Bengali meaning of: 'Bilk'",
+            "options": ["সাহায্য করা", "প্রতারণা করা", "অর্থ প্রদান করা", "বিশ্বাস রাখা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Bilk মানে হলো কাউকে প্রতারণা করে টাকা নেওয়া।"
+        }, {
+            "id": 71,
+            "q": "Choose the Bengali meaning of: 'Clemency'",
+            "options": ["কঠোরতা", "ক্ষমা", "ন্যায়", "সততা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Clemency মানে হলো দয়া বা ক্ষমা।"
+        }, {
+            "id": 72,
+            "q": "Choose the Bengali meaning of: 'Diatribe'",
+            "options": ["প্রশংসা", "কঠোর সমালোচনা", "শান্তি", "উপহার"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Diatribe মানে হলো একটি তীব্র এবং কঠোর সমালোচনা।"
+        }, {
+            "id": 73,
+            "q": "Choose the Bengali meaning of: 'Ebullient'",
+            "options": ["শান্ত", "উৎসাহী", "সঙ্কুচিত", "বিরক্ত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ebullient মানে হলো অত্যন্ত উৎসাহী বা আনন্দপূর্ণ।"
+        }, {
+            "id": 74,
+            "q": "Choose the Bengali meaning of: 'Fatuous'",
+            "options": ["বুদ্ধিমান", "নির্বোধ", "চতুর", "গম্ভীর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Fatuous মানে হলো নির্বোধ বা মূর্খ।"
+        }, {
+            "id": 75,
+            "q": "Choose the Bengali meaning of: 'Glib'",
+            "options": ["আন্তরিক", "চতুর", "কথা বলায় সাবলীল", "কঠিন"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Glib মানে হলো কথা বলায় সাবলীল বা মসৃণ, কিন্তু প্রায়শই আন্তরিকতাহীন বা অবিশ্বস্ত।"
+        }, {
+            "id": 76,
+            "q": "Choose the Bengali meaning of: 'Halcyon'",
+            "options": ["ঝড়পূর্ণ", "শান্ত", "অতীত", "ভবিষ্যত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Halcyon মানে হলো শান্ত বা শান্তিপূর্ণ।"
+        }, {
+            "id": 77,
+            "q": "Choose the Bengali meaning of: 'Impugn'",
+            "options": ["সমর্থন করা", "প্রশ্ন করা", "বিশ্বাস করা", "রক্ষা করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Impugn মানে হলো কারো সততা বা উদ্দেশ্য নিয়ে প্রশ্ন করা।"
+        }, {
+            "id": 78,
+            "q": "Choose the Bengali meaning of: 'Jingoism'",
+            "options": ["শান্তিপ্রিয়তা", "অন্ধ দেশপ্রেম", "ভ্রমণ", "শিক্ষা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Jingoism মানে হলো চরম বা অন্ধ দেশপ্রেম যা অন্য দেশের প্রতি বিদ্বেষ প্রকাশ করে।"
+        }, {
+            "id": 79,
+            "q": "Choose the Bengali meaning of: 'Largess'",
+            "options": ["কৃপণতা", "উদারতা", "ক্ষুদ্রতা", "কঠোরতা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Largess মানে হলো উদারতা বা উদারভাবে অর্থ বা উপহার দেওয়া।"
+        }, {
+            "id": 80,
+            "q": "Choose the Bengali meaning of: 'Maelstrom'",
+            "options": ["শান্তি", "ঘূর্ণিঝড়", "শান্তিপূর্ণ", "নিয়ন্ত্রণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Maelstrom মানে হলো একটি বড় এবং হিংস্র ঘূর্ণি বা গোলযোগপূর্ণ অবস্থা।"
+        }, {
+            "id": 81,
+            "q": "Choose the Bengali meaning of: 'Nadir'",
+            "options": ["শীর্ষবিন্দু", "সর্বনিম্ন বিন্দু", "মাঝারি", "অস্পষ্ট"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Nadir মানে হলো কোনো কিছুর সর্বনিম্ন বিন্দু।"
+        }, {
+            "id": 82,
+            "q": "Choose the Bengali meaning of: 'Onerous'",
+            "options": ["সহজ", "কঠিন", "আনন্দদায়ক", "স্বাভাবিক"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Onerous মানে হলো অত্যন্ত কঠিন বা কষ্টকর।"
+        }, {
+            "id": 83,
+            "q": "Choose the Bengali meaning of: 'Palpable'",
+            "options": ["অস্পষ্ট", "অনুভূতিযোগ্য", "অজানা", "ধারণাতীত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Palpable মানে হলো স্পর্শযোগ্য বা যা সহজে অনুভব করা যায়।"
+        }, {
+            "id": 84,
+            "q": "Choose the Bengali meaning of: 'Quagmire'",
+            "options": ["সহজ অবস্থা", "জলাভূমি", "পরিষ্কার পথ", "নতুন পরিকল্পনা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Quagmire মানে হলো একটি কঠিন এবং জটিল পরিস্থিতি বা জলাভূমি।"
+        }, {
+            "id": 85,
+            "q": "Choose the Bengali meaning of: 'Reticent'",
+            "options": ["বাকপটু", "অল্পভাষী", "সাহসী", "মিথ্যাবাদী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Reticent মানে হলো স্বভাবগতভাবে চুপচাপ বা অল্পভাষী।"
+        }, {
+            "id": 86,
+            "q": "Choose the Bengali meaning of: 'Staid'",
+            "options": ["উত্তেজিত", "শান্ত", "অস্থির", "চতুর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Staid মানে হলো গম্ভীর বা শান্ত।"
+        }, {
+            "id": 87,
+            "q": "Choose the Bengali meaning of: 'Turgid'",
+            "options": ["ছোট", "ফোলা", "স্পষ্ট", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Turgid মানে হলো ফোলা বা অতিরঞ্জিত।"
+        }, {
+            "id": 88,
+            "q": "Choose the Bengali meaning of: 'Vituperate'",
+            "options": ["প্রশংসা করা", "তিরস্কার করা", "সাহায্য করা", "প্রস্তাব দেওয়া"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Vituperate মানে হলো তীব্রভাবে তিরস্কার বা গালিগালাজ করা।"
+        }, {
+            "id": 89,
+            "q": "Choose the Bengali meaning of: 'Ameliorate'",
+            "options": ["খারাপ করা", "উন্নত করা", "ধীর করা", "ধ্বংস করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ameliorate মানে হলো কোনো কিছুর খারাপ অবস্থা উন্নত করা।"
+        }, {
+            "id": 90,
+            "q": "Choose the Bengali meaning of: 'Cacophony'",
+            "options": ["মধুর শব্দ", "কর্কশ শব্দ", "নীরবতা", "সুর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Cacophony মানে হলো একগুচ্ছ কর্কশ বা অপ্রীতিকর শব্দ।"
+        }, {
+            "id": 91,
+            "q": "Choose the Bengali meaning of: 'Esoteric'",
+            "options": ["সাধারণ", "দুর্বোধ্য", "স্পষ্ট", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Esoteric মানে হলো শুধুমাত্র নির্দিষ্ট কিছু মানুষের কাছে বোধগম্য, অর্থাৎ দুর্বোধ্য।"
+        }, {
+            "id": 92,
+            "q": "Choose the Bengali meaning of: 'Expunge'",
+            "options": ["যোগ করা", "মুছে ফেলা", "লেখা", "স্থির করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Expunge মানে হলো কোনো কিছু তালিকা বা রেকর্ড থেকে মুছে ফেলা।"
+        }, {
+            "id": 93,
+            "q": "Choose the Bengali meaning of: 'Fathom'",
+            "options": ["অপেক্ষা করা", "গভীরতা মাপা", "প্রস্তুত করা", "অগ্রাহ্য করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Fathom মানে হলো কোনো কিছু গভীরভাবে বোঝা বা উপলব্ধি করা।"
+        }, {
+            "id": 94,
+            "q": "Choose the Bengali meaning of: 'Germane'",
+            "options": ["অপ্রাসঙ্গিক", "প্রাসঙ্গিক", "ভিন্ন", "কঠিন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Germane মানে হলো কোনো কিছুর সাথে প্রাসঙ্গিক বা সম্পর্কিত।"
+        }, {
+            "id": 95,
+            "q": "Choose the Bengali meaning of: 'Homogenous'",
+            "options": ["একই ধরনের", "ভিন্ন ধরনের", "মিশ্র", "সাধারণ"],
+            "answer": 0,
+            "explain": "ব্যাখ্যা: Homogenous মানে হলো একই ধরনের বা একজাতীয়।"
+        }, {
+            "id": 96,
+            "q": "Choose the Bengali meaning of: 'Insipid'",
+            "options": ["স্বাদযুক্ত", "স্বাদহীন", "মিষ্টি", "কটু"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Insipid মানে হলো স্বাদহীন বা বৈচিত্র্যহীন।"
+        }, {
+            "id": 97,
+            "q": "Choose the Bengali meaning of: 'Lachrymose'",
+            "options": ["হাসি খুশি", "শোকগ্রস্ত", "উদাসীন", "ভয়ঙ্কর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Lachrymose মানে হলো শোকগ্রস্ত বা সহজে কাঁদতে থাকে এমন।"
+        }, {
+            "id": 98,
+            "q": "Choose the Bengali meaning of: 'Mendacious'",
+            "options": ["সত্যবাদী", "মিথ্যাবাদী", "সৎ", "নির্ভরযোগ্য"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Mendacious মানে হলো মিথ্যাবাদী বা অসৎ।"
+        }, {
+            "id": 99,
+            "q": "Choose the Bengali meaning of: 'Parsimonious'",
+            "options": ["উদার", "কৃপণ", "ব্যয়বহুল", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Parsimonious মানে হলো কৃপণ বা অতিরিক্ত হিসেবি।"
+        }, {
+            "id": 100,
+            "q": "Choose the Bengali meaning of: 'Pusillanimous'",
+            "options": ["সাহসী", "ভীরু", "জ্ঞানী", "শক্তিশালী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Pusillanimous মানে হলো ভীরু বা কাপুরুষ।"
+        }, {
+            "id": 101,
+            "q": "Choose the Bengali meaning of: 'Restive'",
+            "options": ["শান্ত", "অস্থির", "নিয়মিত", "অলস"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Restive মানে হলো অস্থির বা সহজে নিয়ন্ত্রণ করা যায় না এমন।"
+        }, {
+            "id": 102,
+            "q": "Choose the Bengali meaning of: 'Sanctimonious'",
+            "options": ["ধার্মিক", "ভন্ড", "সৎ", "আলোকিত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Sanctimonious মানে হলো এমন ব্যক্তি যে নিজেকে ধার্মিক দেখায় কিন্তু আসলে তা নয়, অর্থাৎ ভন্ড।"
+        }, {
+            "id": 103,
+            "q": "Choose the Bengali meaning of: 'Sybarite'",
+            "options": ["কৃপণ", "বিলাসী", "সঞ্চয়ী", "পরিশ্রমী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Sybarite মানে হলো যে ব্যক্তি বিলাসী জীবনযাপন করে।"
+        }, {
+            "id": 104,
+            "q": "Choose the Bengali meaning of: 'Transient'",
+            "options": ["স্থায়ী", "ক্ষণস্থায়ী", "ধীর", "গুরুত্বপূর্ণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Transient মানে হলো ক্ষণস্থায়ী বা অল্প সময়ের জন্য থাকে এমন।"
+        }, {
+            "id": 105,
+            "q": "Choose the Bengali meaning of: 'Uncouth'",
+            "options": ["ভদ্র", "অভদ্র", "শিক্ষিত", "আকর্ষণীয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Uncouth মানে হলো অভদ্র বা রুক্ষ।"
+        }, {
+            "id": 106,
+            "q": "Choose the Bengali meaning of: 'Vexatious'",
+            "options": ["আনন্দদায়ক", "বিরক্তিকর", "সহজ", "সাধারণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Vexatious মানে হলো বিরক্তিকর বা ঝামেলাপূর্ণ।"
+        }, {
+            "id": 107,
+            "q": "Choose the Bengali meaning of: 'Voracious'",
+            "options": ["ক্ষুধাহীন", "লোভী", "সন্তুষ্ট", "দুর্বল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Voracious মানে হলো অত্যন্ত লোভী বা ক্ষুধার্ত।"
+        }, {
+            "id": 108,
+            "q": "Choose the Bengali meaning of: 'Winsome'",
+            "options": ["বিরক্তিকর", "আকর্ষণীয়", "সতর্ক", "অলস"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Winsome মানে হলো আকর্ষণীয় বা আনন্দদায়ক।"
+        }, {
+            "id": 109,
+            "q": "Choose the Bengali meaning of: 'Abnegate'",
+            "options": ["গ্রহণ করা", "ত্যাগ করা", "বৃদ্ধি করা", "শুরু করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Abnegate মানে হলো কোনো কিছু ত্যাগ করা বা অস্বীকার করা।"
+        }, {
+            "id": 110,
+            "q": "Choose the Bengali meaning of: 'Bumptious'",
+            "options": ["বিনয়ী", "দাম্ভিক", "শান্ত", "দুর্বল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Bumptious মানে হলো আত্ম-গুরুত্বপূর্ণ বা দাম্ভিক।"
+        }, {
+            "id": 111,
+            "q": "Choose the Bengali meaning of: 'Capitulate'",
+            "options": ["যুদ্ধ করা", "আত্মসমর্পণ করা", "গ্রহণ করা", "প্রস্তাব দেওয়া"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Capitulate মানে হলো আত্মসমর্পণ করা।"
+        }, {
+            "id": 112,
+            "q": "Choose the Bengali meaning of: 'Dissemble'",
+            "options": ["প্রকাশ করা", "ভঙ্গ করা", "সততা রাখা", "সাজানো"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Dissemble মানে হলো নিজের আসল উদ্দেশ্য গোপন করা বা ভান করা।"
+        }, {
+            "id": 113,
+            "q": "Choose the Bengali meaning of: 'Effrontery'",
+            "options": ["লজ্জা", "নির্লজ্জতা", "ভয়", "দ্বিধা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Effrontery মানে হলো নির্লজ্জতা বা ঔদ্ধত্য।"
+        }, {
+            "id": 114,
+            "q": "Choose the Bengali meaning of: 'Fecund'",
+            "options": ["অনুর্বর", "উর্বর", "শুষ্ক", "ধীর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Fecund মানে হলো উর্বর বা ফলপ্রসূ।"
+        }, {
+            "id": 115,
+            "q": "Choose the Bengali meaning of: 'Glib'",
+            "options": ["কঠোর", "সাবলীল", "কঠিন", "অস্পষ্ট"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Glib মানে হলো সাবলীল, কিন্তু প্রায়শই আন্তরিকতাহীন বা অবিশ্বস্ত।"
+        }, {
+            "id": 116,
+            "q": "Choose the Bengali meaning of: 'Hyperbole'",
+            "options": ["সংযম", "অতিরঞ্জন", "বাস্তবতা", "লজ্জা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Hyperbole মানে হলো অতিরঞ্জন বা বাড়িয়ে বলা।"
+        }, {
+            "id": 117,
+            "q": "Choose the Bengali meaning of: 'Invective'",
+            "options": ["প্রশংসা", "তিরস্কার", "শান্তি", "সৌন্দর্য"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Invective মানে হলো অত্যন্ত কঠোর বা অপমানজনক ভাষা।"
+        }, {
+            "id": 118,
+            "q": "Choose the Bengali meaning of: 'Jettison'",
+            "options": ["গ্রহণ করা", "ফেলে দেওয়া", "আটক রাখা", "সংরক্ষণ করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Jettison মানে হলো অপ্রয়োজনীয় জিনিস ফেলে দেওয়া বা বাদ দেওয়া।"
+        }, {
+            "id": 119,
+            "q": "Choose the Bengali meaning of: 'Lassitude'",
+            "options": ["শক্তি", "ক্লান্তি", "উত্সাহ", "সক্রিয়তা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Lassitude মানে হলো মানসিক বা শারীরিক ক্লান্তি।"
+        }, {
+            "id": 120,
+            "q": "Choose the Bengali meaning of: 'Malinger'",
+            "options": ["কাজ করা", "অসুস্থতার ভান করা", "ভ্রমণ করা", "যুদ্ধ করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Malinger মানে হলো অসুস্থতার ভান করে দায়িত্ব এড়িয়ে যাওয়া।"
+        }, {
+            "id": 121,
+            "q": "Choose the Bengali meaning of: 'Noxious'",
+            "options": ["স্বাস্থ্যকর", "বিষাক্ত", "নিরাপদ", "সুগন্ধি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Noxious মানে হলো বিষাক্ত বা ক্ষতিকর।"
+        }, {
+            "id": 122,
+            "q": "Choose the Bengali meaning of: 'Obstreperous'",
+            "options": ["শান্ত", "গোলমালপূর্ণ", "নিয়ন্ত্রণাধীন", "ভদ্র"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Obstreperous মানে হলো গোলমালপূর্ণ বা অশান্ত।"
+        }, {
+            "id": 123,
+            "q": "Choose the Bengali meaning of: 'Paucity'",
+            "options": ["প্রাচুর্য", "অভাব", "বৃদ্ধি", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Paucity মানে হলো কোনো কিছুর অভাব বা স্বল্পতা।"
+        }, {
+            "id": 124,
+            "q": "Choose the Bengali meaning of: 'Quotidian'",
+            "options": ["বিশেষ", "দৈনিক", "অসাধারণ", "বিরল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Quotidian মানে হলো প্রতিদিনের বা স্বাভাবিক।"
+        }, {
+            "id": 125,
+            "q": "Choose the Bengali meaning of: 'Recalcitrant'",
+            "options": ["বাধ্য", "অবাধ্য", "শান্ত", "সহযোগী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Recalcitrant মানে হলো অবাধ্য বা নিয়ন্ত্রণ করা কঠিন।"
+        }, {
+            "id": 126,
+            "q": "Choose the Bengali meaning of: 'Sardonic'",
+            "options": ["আন্তরিক", "ব্যঙ্গাত্মক", "বন্ধুত্বপূর্ণ", "সহযোগী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Sardonic মানে হলো ব্যঙ্গাত্মক বা উপহাসমূলক।"
+        }, {
+            "id": 127,
+            "q": "Choose the Bengali meaning of: 'Torpid'",
+            "options": ["সক্রিয়", "নিষ্ক্রিয়", "উজ্জ্বল", "কঠিন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Torpid মানে হলো অলস বা নিষ্ক্রিয়।"
+        }, {
+            "id": 128,
+            "q": "Choose the Bengali meaning of: 'Turpitude'",
+            "options": ["সততা", "অনৈতিকতা", "সৌন্দর্য", "শান্তি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Turpitude মানে হলো নৈতিক অধঃপতন বা অসাধুতা।"
+        }, {
+            "id": 129,
+            "q": "Choose the Bengali meaning of: 'Verbose'",
+            "options": ["সংক্ষিপ্ত", "বাকচাতুর্যপূর্ণ", "নীরব", "অস্পষ্ট"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Verbose মানে হলো অতিরিক্ত শব্দ ব্যবহার করা বা বাকচাতুর্যপূর্ণ।"
+        }, {
+            "id": 130,
+            "q": "Choose the Bengali meaning of: 'Acrimony'",
+            "options": ["বন্ধুত্ব", "তিক্ততা", "আনন্দ", "শান্তি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Acrimony মানে হলো তিক্ততা বা কঠোরতা।"
+        }, {
+            "id": 131,
+            "q": "Choose the Bengali meaning of: 'Bellicose'",
+            "options": ["শান্তিপ্রিয়", "যুদ্ধপ্রিয়", "ভীতু", "দুর্বল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Bellicose মানে হলো যুদ্ধপ্রিয় বা ঝগড়াটে।"
+        }, {
+            "id": 132,
+            "q": "Choose the Bengali meaning of: 'Celerity'",
+            "options": ["ধীরতা", "দ্রুততা", "স্থিরতা", "ক্লান্তি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Celerity মানে হলো দ্রুততা বা বেগ।"
+        }, {
+            "id": 133,
+            "q": "Choose the Bengali meaning of: 'Dilettante'",
+            "options": ["বিশেষজ্ঞ", "অজ্ঞ", "শিক্ষিত", "নিয়মিত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Dilettante মানে হলো যে ব্যক্তি কোনো বিষয়ে কেবল শখের বশে জ্ঞান অর্জন করে, অর্থাৎ অপেশাদার।"
+        }, {
+            "id": 134,
+            "q": "Choose the Bengali meaning of: 'Ersatz'",
+            "options": ["সত্য", "নকল", "মূল", "প্রকৃত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ersatz মানে হলো একটি কৃত্রিম বা নকল বিকল্প।"
+        }, {
+            "id": 135,
+            "q": "Choose the Bengali meaning of: 'Fulsome'",
+            "options": ["সংক্ষিপ্ত", "অতিরিক্ত", "সামান্য", "সুন্দর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Fulsome মানে হলো অতিরিক্ত বা বাড়াবাড়ি।"
+        }, {
+            "id": 136,
+            "q": "Choose the Bengali meaning of: 'Gourmand'",
+            "options": ["কৃপণ", "খাদ্যরসিক", "মিষ্টভাষী", "সঞ্চয়ী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Gourmand মানে হলো একজন খাদ্যরসিক বা ভোজনবিলাসী।"
+        }, {
+            "id": 137,
+            "q": "Choose the Bengali meaning of: 'Hegemony'",
+            "options": ["দুর্বলতা", "নেতৃত্ব", "সহযোগিতা", "বিচ্ছেদ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Hegemony মানে হলো একটি রাষ্ট্রের বা দলের আধিপত্য বা নেতৃত্ব।"
+        }, {
+            "id": 138,
+            "q": "Choose the Bengali meaning of: 'Imbroglio'",
+            "options": ["শান্তি", "জটিল পরিস্থিতি", "স্পষ্টতা", "সমাধান"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Imbroglio মানে হলো একটি অত্যন্ত জটিল বা বিভ্রান্তিকর পরিস্থিতি।"
+        }, {
+            "id": 139,
+            "q": "Choose the Bengali meaning of: 'Juggernaut'",
+            "options": ["দুর্বল শক্তি", "বিশাল শক্তি", "ছোট যান", "শান্ত পরিবেশ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Juggernaut মানে হলো একটি বিশাল এবং অপ্রতিরোধ্য শক্তি বা বস্তু।"
+        }, {
+            "id": 140,
+            "q": "Choose the Bengali meaning of: 'Knell'",
+            "options": ["শুরু", "শেষের ঘণ্টা", "আনন্দ", "শান্তি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Knell মানে হলো শেষ বা সমাপ্তির প্রতীক।"
+        }, {
+            "id": 141,
+            "q": "Choose the Bengali meaning of: 'Livid'",
+            "options": ["আনন্দিত", "ক্রুদ্ধ", "শান্ত", "দুর্বল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Livid মানে হলো অত্যন্ত ক্রুদ্ধ বা রাগান্বিত।"
+        }, {
+            "id": 142,
+            "q": "Choose the Bengali meaning of: 'Machiavellian'",
+            "options": ["সৎ", "ধূর্ত", "বোকা", "স্বচ্ছ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Machiavellian মানে হলো ধূর্ত, কূটকৌশলী বা প্রতারক।"
+        }, {
+            "id": 143,
+            "q": "Choose the Bengali meaning of: 'Nepotism'",
+            "options": ["ন্যায়বিচার", "স্বজনপ্রীতি", "সততা", "দুর্নীতি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Nepotism মানে হলো স্বজনপ্রীতি বা ক্ষমতার অপব্যবহার করে আত্মীয়-স্বজনকে সুবিধা দেওয়া।"
+        }, {
+            "id": 144,
+            "q": "Choose the Bengali meaning of: 'Obviate'",
+            "options": ["সহায়তা করা", "প্রয়োজন দূর করা", "বাধা দেওয়া", "শুরু করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Obviate মানে হলো কোনো কিছুর প্রয়োজন দূর করা বা এড়িয়ে যাওয়া।"
+        }, {
+            "id": 145,
+            "q": "Choose the Bengali meaning of: 'Panacea'",
+            "options": ["রোগ", "সর্ব-আরোগ্যকারী ঔষধ", "সমস্যা", "ত্রুটি"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Panacea মানে হলো একটি সর্ব-আরোগ্যকারী ঔষধ।"
+        }, {
+            "id": 146,
+            "q": "Choose the Bengali meaning of: 'Quibble'",
+            "options": ["গুরুত্বপূর্ণ বিষয়", "ছোট বিষয়ে ঝগড়া করা", "প্রশংসা করা", "সমর্থন করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Quibble মানে হলো ছোট এবং অপ্রয়োজনীয় বিষয়ে তর্ক বা ঝগড়া করা।"
+        }, {
+            "id": 147,
+            "q": "Choose the Bengali meaning of: 'Raconteur'",
+            "options": ["নীরব ব্যক্তি", "গল্পকথক", "যুদ্ধবাজ", "কৃপণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Raconteur মানে হলো একজন দক্ষ গল্পকথক।"
+        }, {
+            "id": 148,
+            "q": "Choose the Bengali meaning of: 'Sartorial'",
+            "options": ["রান্না", "পোশাক", "সঙ্গীত", "শিল্প"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Sartorial মানে হলো পোশাক বা সাজসজ্জা সম্পর্কিত।"
+        }, {
+            "id": 149,
+            "q": "Choose the Bengali meaning of: 'Transient'",
+            "options": ["স্থায়ী", "ক্ষণস্থায়ী", "কঠিন", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Transient মানে হলো ক্ষণস্থায়ী বা অল্প সময়ের জন্য থাকে এমন।"
+        }, {
+            "id": 150,
+            "q": "Choose the Bengali meaning of: 'Ubiquitous'",
+            "options": ["বিরল", "সর্বত্র বিদ্যমান", "গোপন", "অকার্যকর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ubiquitous শব্দের অর্থ হলো সর্বত্র বিদ্যমান। যেমন- 'Smartphones are now ubiquitous'."
+        }, {
+            "id": 151,
+            "q": "Choose the Bengali meaning of: 'Abscond'",
+            "options": ["প্রকাশ করা", "পালিয়ে যাওয়া", "স্থির থাকা", "ফিরে আসা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Abscond মানে হলো গোপনভাবে বা লুকিয়ে পালিয়ে যাওয়া।"
+        }, {
+            "id": 152,
+            "q": "Choose the Bengali meaning of: 'Banal'",
+            "options": ["স্বচ্ছ", "সাধারণ", "নতুন", "বৈচিত্র্যপূর্ণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Banal মানে হলো সাধারণ বা গতানুগতিক, যা নতুনত্বহীন।"
+        }, {
+            "id": 153,
+            "q": "Choose the Bengali meaning of: 'Cajole'",
+            "options": ["ভীতি প্রদর্শন করা", "মিষ্টি কথায় রাজি করানো", "ধমকানো", "অগ্রাহ্য করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Cajole মানে হলো মিষ্টি কথায় কাউকে রাজি করানো বা ফুসলানো।"
+        }, {
+            "id": 154,
+            "q": "Choose the Bengali meaning of: 'Demeanor'",
+            "options": ["চেহারা", "আচরণ", "ক্ষমতা", "জ্ঞান"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Demeanor মানে হলো একজনের বাহ্যিক আচরণ বা ব্যবহার।"
+        }, {
+            "id": 155,
+            "q": "Choose the Bengali meaning of: 'Eccentric'",
+            "options": ["সাধারণ", "অদ্ভুত", "নিয়মতান্ত্রিক", "পরিচিত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Eccentric মানে হলো অদ্ভুত বা অস্বাভাবিক আচরণ করে এমন ব্যক্তি।"
+        }, {
+            "id": 156,
+            "q": "Choose the Bengali meaning of: 'Fervent'",
+            "options": ["ঠান্ডা", "উষ্ণ", "আবেগপ্রবণ", "নিয়মতান্ত্রিক"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Fervent মানে হলো অত্যন্ত আবেগপ্রবণ বা তীব্র অনুভূতিপূর্ণ।"
+        }, {
+            "id": 157,
+            "q": "Choose the Bengali meaning of: 'Gauzy'",
+            "options": ["ঘন", "পাতলা", "মোটা", "শক্ত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Gauzy মানে হলো খুব পাতলা এবং প্রায় স্বচ্ছ।"
+        }, {
+            "id": 158,
+            "q": "Choose the Bengali meaning of: 'Hackneyed'",
+            "options": ["নতুন", "পুরাতন", "ব্যবহৃত", "সাধারণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Hackneyed মানে হলো এমন কোনো শব্দ বা ধারণা যা অতিরিক্ত ব্যবহারের কারণে তার নতুনত্ব বা আকর্ষণীয়তা হারিয়েছে।"
+        }, {
+            "id": 159,
+            "q": "Choose the Bengali meaning of: 'Inundate'",
+            "options": ["শুকিয়ে ফেলা", "ডুবিয়ে দেওয়া", "সংকুচিত করা", "আড়াল করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Inundate মানে হলো বন্যা বা অতিরিক্ত পরিমাণ জিনিস দিয়ে ডুবিয়ে দেওয়া।"
+        }, {
+            "id": 160,
+            "q": "Choose the Bengali meaning of: 'Jocund'",
+            "options": ["বিষণ্ণ", "আনন্দময়", "বিরক্ত", "ভয়ঙ্কর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Jocund মানে হলো প্রফুল্ল বা আনন্দময়।"
+        }, {
+            "id": 161,
+            "q": "Choose the Bengali meaning of: 'Languid'",
+            "options": ["শক্তিশালী", "অলস", "উজ্জ্বল", "সক্রিয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Languid মানে হলো অলস বা দুর্বল।"
+        }, {
+            "id": 162,
+            "q": "Choose the Bengali meaning of: 'Meticulous'",
+            "options": ["অগোছালো", "খুঁতখুঁতে", "সহজ", "সাধারণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Meticulous মানে হলো খুব সতর্ক বা খুঁতখুঁতে।"
+        }, {
+            "id": 163,
+            "q": "Choose the Bengali meaning of: 'Nonchalant'",
+            "options": ["অবিচলিত", "উদাসীন", "চিন্তিত", "সচেতন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Nonchalant মানে হলো শান্ত এবং উদাসীন।"
+        }, {
+            "id": 164,
+            "q": "Choose the Bengali meaning of: 'Obsequious'",
+            "options": ["স্বাধীন", "চাটুকার", "বিরক্ত", "সাহসী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Obsequious মানে হলো অতিশয় চাটুকার বা বাধ্য।"
+        }, {
+            "id": 165,
+            "q": "Choose the Bengali meaning of: 'Pernicious'",
+            "options": ["উপকারী", "ক্ষতিকর", "আকর্ষণীয়", "সঞ্চয়ী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Pernicious মানে হলো অত্যন্ত ক্ষতিকর বা বিধ্বংসী।"
+        }, {
+            "id": 166,
+            "q": "Choose the Bengali meaning of: 'Querulous'",
+            "options": ["সন্তুষ্ট", "বিরক্তিকর", "শান্ত", "দয়ালু"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Querulous মানে হলো অভিযোগপ্রবণ বা বিরক্তিপূর্ণ।"
+        }, {
+            "id": 167,
+            "q": "Choose the Bengali meaning of: 'Repudiate'",
+            "options": ["গ্রহণ করা", "প্রত্যাখ্যান করা", "সমর্থন করা", "বিশ্বাস করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Repudiate মানে হলো কোনো কিছুকে প্রত্যাখ্যান করা বা অস্বীকার করা।"
+        }, {
+            "id": 168,
+            "q": "Choose the Bengali meaning of: 'Sycophant'",
+            "options": ["নেতা", "চাটুকার", "শত্রু", "বন্ধু"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Sycophant মানে হলো যে ব্যক্তি ক্ষমতাশালী ব্যক্তির প্রশংসা করে সুবিধা লাভের জন্য, অর্থাৎ চাটুকার।"
+        }, {
+            "id": 169,
+            "q": "Choose the Bengali meaning of: 'Taciturn'",
+            "options": ["বাকপটু", "অল্পভাষী", "উদাসীন", "সক্রিয়"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Taciturn মানে হলো অল্পভাষী বা নীরব।"
+        }, {
+            "id": 170,
+            "q": "Choose the Bengali meaning of: 'Vacuous'",
+            "options": ["বুদ্ধিমান", "অর্থহীন", "গুরুত্বপূর্ণ", "চিন্তাশীল"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Vacuous মানে হলো বুদ্ধিহীন বা অর্থহীন।"
+        }, {
+            "id": 171,
+            "q": "Choose the Bengali meaning of: 'Wistful'",
+            "options": ["হতাশ", "ব্যাকুল", "আনন্দিত", "উদাসীন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Wistful মানে হলো বিষণ্ণ বা আকাঙ্ক্ষাপূর্ণ।"
+        }, {
+            "id": 172,
+            "q": "Choose the Bengali meaning of: 'Aplomb'",
+            "options": ["দ্বিধা", "আত্মবিশ্বাস", "ভয়", "দুর্ভাগ্য"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Aplomb মানে হলো স্থিরতা এবং আত্মবিশ্বাস।"
+        }, {
+            "id": 173,
+            "q": "Choose the Bengali meaning of: 'Bilk'",
+            "options": ["সাহায্য করা", "প্রতারণা করা", "অর্থ প্রদান করা", "বিশ্বাস রাখা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Bilk মানে হলো কাউকে প্রতারণা করে টাকা নেওয়া।"
+        }, {
+            "id": 174,
+            "q": "Choose the Bengali meaning of: 'Clemency'",
+            "options": ["কঠোরতা", "ক্ষমা", "ন্যায়", "সততা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Clemency মানে হলো দয়া বা ক্ষমা।"
+        }, {
+            "id": 175,
+            "q": "Choose the Bengali meaning of: 'Diatribe'",
+            "options": ["প্রশংসা", "কঠোর সমালোচনা", "শান্তি", "উপহার"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Diatribe মানে হলো একটি তীব্র এবং কঠোর সমালোচনা।"
+        }, {
+            "id": 176,
+            "q": "Choose the Bengali meaning of: 'Ebullient'",
+            "options": ["শান্ত", "উৎসাহী", "সঙ্কুচিত", "বিরক্ত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ebullient মানে হলো অত্যন্ত উৎসাহী বা আনন্দপূর্ণ।"
+        }, {
+            "id": 177,
+            "q": "Choose the Bengali meaning of: 'Fatuous'",
+            "options": ["বুদ্ধিমান", "নির্বোধ", "চতুর", "গম্ভীর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Fatuous মানে হলো নির্বোধ বা মূর্খ।"
+        }, {
+            "id": 178,
+            "q": "Choose the Bengali meaning of: 'Glib'",
+            "options": ["আন্তরিক", "চতুর", "কথা বলায় সাবলীল", "কঠিন"],
+            "answer": 2,
+            "explain": "ব্যাখ্যা: Glib মানে হলো কথা বলায় সাবলীল বা মসৃণ, কিন্তু প্রায়শই আন্তরিকতাহীন বা অবিশ্বস্ত।"
+        }, {
+            "id": 179,
+            "q": "Choose the Bengali meaning of: 'Halcyon'",
+            "options": ["ঝড়পূর্ণ", "শান্ত", "অতীত", "ভবিষ্যত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Halcyon মানে হলো শান্ত বা শান্তিপূর্ণ।"
+        }, {
+            "id": 180,
+            "q": "Choose the Bengali meaning of: 'Impugn'",
+            "options": ["সমর্থন করা", "প্রশ্ন করা", "বিশ্বাস করা", "রক্ষা করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Impugn মানে হলো কারো সততা বা উদ্দেশ্য নিয়ে প্রশ্ন করা।"
+        }, {
+            "id": 181,
+            "q": "Choose the Bengali meaning of: 'Jingoism'",
+            "options": ["শান্তিপ্রিয়তা", "অন্ধ দেশপ্রেম", "ভ্রমণ", "শিক্ষা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Jingoism মানে হলো চরম বা অন্ধ দেশপ্রেম যা অন্য দেশের প্রতি বিদ্বেষ প্রকাশ করে।"
+        }, {
+            "id": 182,
+            "q": "Choose the Bengali meaning of: 'Largess'",
+            "options": ["কৃপণতা", "উদারতা", "ক্ষুদ্রতা", "কঠোরতা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Largess মানে হলো উদারতা বা উদারভাবে অর্থ বা উপহার দেওয়া।"
+        }, {
+            "id": 183,
+            "q": "Choose the Bengali meaning of: 'Maelstrom'",
+            "options": ["শান্তি", "ঘূর্ণিঝড়", "শান্তিপূর্ণ", "নিয়ন্ত্রণ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Maelstrom মানে হলো একটি বড় এবং হিংস্র ঘূর্ণি বা গোলযোগপূর্ণ অবস্থা।"
+        }, {
+            "id": 184,
+            "q": "Choose the Bengali meaning of: 'Nadir'",
+            "options": ["শীর্ষবিন্দু", "সর্বনিম্ন বিন্দু", "মাঝারি", "অস্পষ্ট"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Nadir মানে হলো কোনো কিছুর সর্বনিম্ন বিন্দু।"
+        }, {
+            "id": 185,
+            "q": "Choose the Bengali meaning of: 'Onerous'",
+            "options": ["সহজ", "কঠিন", "আনন্দদায়ক", "স্বাভাবিক"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Onerous মানে হলো অত্যন্ত কঠিন বা কষ্টকর।"
+        }, {
+            "id": 186,
+            "q": "Choose the Bengali meaning of: 'Palpable'",
+            "options": ["অস্পষ্ট", "অনুভূতিযোগ্য", "অজানা", "ধারণাতীত"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Palpable মানে হলো স্পর্শযোগ্য বা যা সহজে অনুভব করা যায়।"
+        }, {
+            "id": 187,
+            "q": "Choose the Bengali meaning of: 'Quagmire'",
+            "options": ["সহজ অবস্থা", "জলাভূমি", "পরিষ্কার পথ", "নতুন পরিকল্পনা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Quagmire মানে হলো একটি কঠিন এবং জটিল পরিস্থিতি বা জলাভূমি।"
+        }, {
+            "id": 188,
+            "q": "Choose the Bengali meaning of: 'Reticent'",
+            "options": ["বাকপটু", "অল্পভাষী", "সাহসী", "মিথ্যাবাদী"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Reticent মানে হলো স্বভাবগতভাবে চুপচাপ বা অল্পভাষী।"
+        }, {
+            "id": 189,
+            "q": "Choose the Bengali meaning of: 'Staid'",
+            "options": ["উত্তেজিত", "শান্ত", "অস্থির", "চতুর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Staid মানে হলো গম্ভীর বা শান্ত।"
+        }, {
+            "id": 190,
+            "q": "Choose the Bengali meaning of: 'Turgid'",
+            "options": ["ছোট", "ফোলা", "স্পষ্ট", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Turgid মানে হলো ফোলা বা অতিরঞ্জিত।"
+        }, {
+            "id": 191,
+            "q": "Choose the Bengali meaning of: 'Vituperate'",
+            "options": ["প্রশংসা করা", "তিরস্কার করা", "সাহায্য করা", "প্রস্তাব দেওয়া"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Vituperate মানে হলো তীব্রভাবে তিরস্কার বা গালিগালাজ করা।"
+        }, {
+            "id": 192,
+            "q": "Choose the Bengali meaning of: 'Ameliorate'",
+            "options": ["খারাপ করা", "উন্নত করা", "ধীর করা", "ধ্বংস করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Ameliorate মানে হলো কোনো কিছুর খারাপ অবস্থা উন্নত করা।"
+        }, {
+            "id": 193,
+            "q": "Choose the Bengali meaning of: 'Cacophony'",
+            "options": ["মধুর শব্দ", "কর্কশ শব্দ", "নীরবতা", "সুর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Cacophony মানে হলো একগুচ্ছ কর্কশ বা অপ্রীতিকর শব্দ।"
+        }, {
+            "id": 194,
+            "q": "Choose the Bengali meaning of: 'Esoteric'",
+            "options": ["সাধারণ", "দুর্বোধ্য", "স্পষ্ট", "সহজ"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Esoteric মানে হলো শুধুমাত্র নির্দিষ্ট কিছু মানুষের কাছে বোধগম্য, অর্থাৎ দুর্বোধ্য।"
+        }, {
+            "id": 195,
+            "q": "Choose the Bengali meaning of: 'Expunge'",
+            "options": ["যোগ করা", "মুছে ফেলা", "লেখা", "স্থির করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Expunge মানে হলো কোনো কিছু তালিকা বা রেকর্ড থেকে মুছে ফেলা।"
+        }, {
+            "id": 196,
+            "q": "Choose the Bengali meaning of: 'Fathom'",
+            "options": ["অপেক্ষা করা", "গভীরতা মাপা", "প্রস্তুত করা", "অগ্রাহ্য করা"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Fathom মানে হলো কোনো কিছু গভীরভাবে বোঝা বা উপলব্ধি করা।"
+        }, {
+            "id": 197,
+            "q": "Choose the Bengali meaning of: 'Germane'",
+            "options": ["অপ্রাসঙ্গিক", "প্রাসঙ্গিক", "ভিন্ন", "কঠিন"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Germane মানে হলো কোনো কিছুর সাথে প্রাসঙ্গিক বা সম্পর্কিত।"
+        }, {
+            "id": 198,
+            "q": "Choose the Bengali meaning of: 'Homogenous'",
+            "options": ["একই ধরনের", "ভিন্ন ধরনের", "মিশ্র", "সাধারণ"],
+            "answer": 0,
+            "explain": "ব্যাখ্যা: Homogenous মানে হলো একই ধরনের বা একজাতীয়।"
+        }, {
+            "id": 199,
+            "q": "Choose the Bengali meaning of: 'Insipid'",
+            "options": ["স্বাদযুক্ত", "স্বাদহীন", "মিষ্টি", "কটু"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Insipid মানে হলো স্বাদহীন বা বৈচিত্র্যহীন।"
+        }, {
+            "id": 200,
+            "q": "Choose the Bengali meaning of: 'Lachrymose'",
+            "options": ["হাসি খুশি", "শোকগ্রস্ত", "উদাসীন", "ভয়ঙ্কর"],
+            "answer": 1,
+            "explain": "ব্যাখ্যা: Lachrymose মানে হলো শোকগ্রস্ত বা সহজে কাঁদতে থাকে এমন।"
+        }];
+
+        // ----------------------------
+        // State
+        // ----------------------------
+        let currentUser = null;
+        let selectedIds = [];
+        let selectedMap = {}; // { qid: optionIndex }
+        let endTime = null; // epoch seconds
+        let submitted = false;
+        let timerHandle = null;
+
+        // ----------------------------
+        // DOM Elements
+        // ----------------------------
+        const loginSection = qs('#login-section');
+        const loginForm = qs('#login-form');
+        const usernameInput = qs('#username-input');
+        const userDisplayEl = qs('#user-display');
+        const usernameDisplayEl = qs('#username-display');
+        const userScoreDisplayEl = qs('#user-score-display');
+        const introEl = qs('#intro');
+        const rankSection = qs('#rank-section');
+        const rankTableBody = qs('#rank-table-body');
+        const examForm = qs('#exam');
+        const startBtn = qs('#startBtn');
+        const resetBtn = qs('#resetBtn');
+        const submitBtn = qs('#submitBtn');
+        const timerEl = qs('#timer');
+        const summaryEl = qs('#summary');
+        const actionsContainer = qs('#actions-container');
+
+        // ----------------------------
+        // Rendering
+        // ----------------------------
+        function renderQuestions() {
+            examForm.innerHTML = '';
+            const chosen = QUESTIONS.filter(q => selectedIds.includes(q.id));
+            chosen.forEach((q, idx) => {
+                const qWrap = document.createElement('section');
+                qWrap.className = 'question';
+                qWrap.setAttribute('data-qid', q.id);
+
+                qWrap.innerHTML = `
+                <div class="q-head">
+                    <div class="q-num">${idx+1}</div>
+                    <div class="q-text">${q.q}</div>
+                </div>
+                <div class="options" role="radiogroup" aria-label="Question ${idx+1}">
+                    ${q.options.map((opt, i) => {
+                        const checked = selectedMap[q.id] === i ? 'checked' : '';
+                        return `
+                        <label class="option">
+                            <input type="radio" name="q_${q.id}" value="${i}" ${checked} aria-label="Option ${String.fromCharCode(65+i)}">
+                            <div class="opt-text"><strong>(${String.fromCharCode(65+i)})</strong> ${opt}</div>
+                        </label>
+                        `;
+                    }).join('')}
+                </div>
+                `;
+
+                examForm.appendChild(qWrap);
+            });
+
+            // attach listeners
+            qsa('input[type=radio]', examForm).forEach(inp => {
+                inp.addEventListener('change', e => {
+                    const name = e.target.name; // q_<id>
+                    const qid = parseInt(name.split('_')[1], 10);
+                    selectedMap[qid] = parseInt(e.target.value, 10);
+                    persistState();
+                });
+            });
+        }
+
+        function renderSummary(score, details) {
+            const total = EXAM_SIZE;
+            const correct = details.filter(d => d.correct).length;
+            const wrong = details.filter(d => d.user !== null && !d.correct).length;
+            const unanswered = total - correct - wrong;
+
+            summaryEl.classList.remove('hidden');
+            summaryEl.innerHTML = `
+            <div style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
+                <div style="display:flex; gap:12px; align-items:center">
+                    <span class="score-badge" title="Final Score">Score: ${score.toFixed(2)} / ${total.toFixed(2)}</span>
+                    <span class="chip correct-chip">✅ ${correct} correct</span>
+                    <span class="chip wrong-chip">❌ ${wrong} wrong</span>
+                    <span class="chip unanswered-chip">⏳ ${unanswered} unanswered</span>
+                </div>
+            </div>
+            `;
+        }
+
+        function markReview(details) {
+            details.forEach((d, idx) => {
+                const sec = qs(`.question[data-qid="${d.id}"]`);
+                if (!sec) return;
+                const labels = qsa('.option', sec);
+                labels.forEach((lab, i) => {
+                    lab.classList.remove('correct', 'wrong');
+                    if (i === d.answer) lab.classList.add('correct');
+                    if (d.user !== null && i === d.user && !d.correct) lab.classList.add('wrong');
+                    lab.querySelector('input').disabled = true;
+                });
+
+                const expContainer = document.createElement('div');
+                expContainer.className = 'explanation-container';
+                const statusDiv = document.createElement('div');
+
+                if (d.correct) {
+                    statusDiv.className = 'result-status correct-status';
+                    statusDiv.innerHTML = `<i class="fas fa-check-circle"></i> Correct Answer`;
+                } else if (d.user !== null) {
+                    statusDiv.className = 'result-status wrong-status';
+                    statusDiv.innerHTML = `<i class="fas fa-times-circle"></i> Your Answer was Wrong`;
+                } else {
+                    statusDiv.className = 'result-status unanswered-status';
+                    statusDiv.innerHTML = `<i class="fas fa-question-circle"></i> Unanswered`;
+                }
+                
+                const exp = document.createElement('p');
+                exp.className = 'explain';
+                exp.textContent = `সঠিক উত্তর: ${d.options[d.answer]}. ${d.explain}`;
+                
+                expContainer.appendChild(statusDiv);
+                expContainer.appendChild(exp);
+                sec.appendChild(expContainer);
+            });
+        }
+        
+        function renderLeaderboard() {
+            const users = loadFromStorage(LEADERBOARD_KEY) || [];
+            if (users.length === 0) {
+                // Initial data for some sample users
+                const initialUsers = [{
+                    username: 'Rakibul Hasan',
+                    score: 45
+                }, {
+                    username: 'Ayesha Akhter',
+                    score: 42
+                }, {
+                    username: 'Tarikul Islam',
+                    score: 38
+                }, {
+                    username: 'Fatema Jannat',
+                    score: 35
+                }, {
+                    username: 'Jahid Hossain',
+                    score: 32
+                }];
+                saveToStorage(LEADERBOARD_KEY, initialUsers);
+            }
+            
+            let allUsers = loadFromStorage(LEADERBOARD_KEY);
+            let userFound = false;
+            
+            if (currentUser) {
+                const existingUser = allUsers.find(u => u.username === currentUser.username);
+                if (existingUser) {
+                    existingUser.score = currentUser.score;
+                    userFound = true;
+                }
+            }
+
+            if (currentUser && !userFound) {
+                allUsers.push(currentUser);
+            }
+
+            allUsers.sort((a, b) => b.score - a.score);
+            saveToStorage(LEADERBOARD_KEY, allUsers);
+            
+            rankTableBody.innerHTML = '';
+            allUsers.forEach((user, index) => {
+                const row = document.createElement('tr');
+                if (currentUser && user.username === currentUser.username) {
+                    row.classList.add('user-row');
+                }
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${user.username}</td>
+                    <td>${user.score.toFixed(2)}</td>
+                `;
+                rankTableBody.appendChild(row);
+            });
+            rankSection.classList.remove('hidden');
+        }
+
+        // ----------------------------
+        // User & Session Management
+        // ----------------------------
+        function loginUser(username) {
+            const users = loadFromStorage(LEADERBOARD_KEY) || [];
+            let user = users.find(u => u.username === username);
+            if (!user) {
+                user = {
+                    username: username,
+                    score: 0
+                };
+            }
+            currentUser = user;
+            saveToStorage(USER_KEY, currentUser);
+            
+            loginSection.classList.add('hidden');
+            introEl.classList.remove('hidden');
+            userDisplayEl.classList.remove('hidden');
+            usernameDisplayEl.textContent = currentUser.username;
+            userScoreDisplayEl.textContent = `Score: ${currentUser.score.toFixed(2)}`;
+            actionsContainer.classList.add('hidden');
+            examForm.innerHTML = '';
+            summaryEl.classList.add('hidden');
+            rankSection.classList.remove('hidden');
+            renderLeaderboard();
+        }
+
+        // ----------------------------
+        // Exam Flow
+        // ----------------------------
+        function startExam() {
+            if (!currentUser) {
+                alert("Please log in first!");
+                return;
+            }
+
+            if (selectedIds.length === 0) {
+                selectedIds = pick(QUESTIONS, EXAM_SIZE).map(q => q.id);
+            }
+            endTime = Math.floor(Date.now() / 1000) + EXAM_MINUTES * 60;
+            submitted = false;
+            submitBtn.disabled = false;
+            introEl.classList.add('hidden');
+            rankSection.classList.add('hidden');
+            summaryEl.classList.add('hidden');
+            actionsContainer.classList.remove('hidden');
+            
+            renderQuestions();
+            persistState();
+            startTimer();
+        }
+
+        function submitExam() {
+            if (submitted) return;
+            submitted = true;
+            stopTimer();
+            submitBtn.disabled = true;
+
+            const chosen = QUESTIONS.filter(q => selectedIds.includes(q.id));
+            const details = chosen.map(q => {
+                const user = (q.id in selectedMap) ? selectedMap[q.id] : null;
+                const correct = user === q.answer;
+                return {
+                    id: q.id,
+                    user,
+                    answer: q.answer,
+                    correct,
+                    options: q.options,
+                    explain: q.explain
+                };
+            });
+
+            const correctCount = details.filter(d => d.correct).length;
+            const wrongCount = details.filter(d => d.user !== null && !d.correct).length;
+            const score = correctCount * 1 + wrongCount * (-0.25);
+            
+            currentUser.score += score;
+            saveToStorage(USER_KEY, currentUser);
+            
+            renderSummary(score, details);
+            markReview(details);
+            renderLeaderboard();
+            persistState();
+            
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function resetExam() {
+            stopTimer();
+            removeFromStorage(EXAM_STATE_KEY);
+            selectedIds = [];
+            selectedMap = {};
+            endTime = null;
+            submitted = false;
+            timerEl.textContent = formatTime(EXAM_MINUTES * 60);
+            submitBtn.disabled = true;
+            summaryEl.classList.add('hidden');
+            examForm.innerHTML = '';
+            introEl.classList.remove('hidden');
+            actionsContainer.classList.add('hidden');
+            rankSection.classList.remove('hidden');
+            renderLeaderboard();
+        }
+
+        // ----------------------------
+        // Timer
+        // ----------------------------
+        function startTimer() {
+            stopTimer();
+            tick();
+            timerHandle = setInterval(tick, 1000);
+        }
+
+        function stopTimer() {
+            if (timerHandle) {
+                clearInterval(timerHandle);
+                timerHandle = null;
+            }
+        }
+
+        function tick() {
+            const now = Math.floor(Date.now() / 1000);
+            const remain = Math.max(0, endTime - now);
+            timerEl.textContent = formatTime(remain);
+
+            if (remain <= 60) {
+                timerEl.style.background = '#2b0b0b';
+                timerEl.style.color = '#fecaca';
+                timerEl.style.borderColor = 'rgba(248,113,113,0.4)';
+            } else if (remain <= 5 * 60) {
+                timerEl.style.background = '#2b1a0b';
+                timerEl.style.color = '#fde68a';
+                timerEl.style.borderColor = 'rgba(245,158,11,0.4)';
+            } else {
+                timerEl.style.background = '#0b1a2f';
+                timerEl.style.color = '#bfdbfe';
+                timerEl.style.borderColor = 'rgba(96,165,250,0.3)';
+            }
+
+            if (remain === 0) {
+                submitExam();
+            }
+        }
+
+        // ----------------------------
+        // Persistence (localStorage)
+        // ----------------------------
+        function persistState() {
+            const state = {
+                selectedIds,
+                selectedMap,
+                endTime,
+                submitted
+            };
+            saveToStorage(EXAM_STATE_KEY, state);
+        }
+
+        function restoreState() {
+            const userState = loadFromStorage(USER_KEY);
+            if (userState) {
+                currentUser = userState;
+                loginSection.classList.add('hidden');
+                introEl.classList.remove('hidden');
+                userDisplayEl.classList.remove('hidden');
+                usernameDisplayEl.textContent = currentUser.username;
+                userScoreDisplayEl.textContent = `Score: ${currentUser.score.toFixed(2)}`;
+                renderLeaderboard();
+            } else {
+                loginSection.classList.remove('hidden');
+                introEl.classList.add('hidden');
+                userDisplayEl.classList.add('hidden');
+                rankSection.classList.add('hidden');
+            }
+
+            const examState = loadFromStorage(EXAM_STATE_KEY);
+            if (!examState || !examState.selectedIds || examState.selectedIds.length === 0) {
+                return;
+            }
+
+            selectedIds = examState.selectedIds || [];
+            selectedMap = examState.selectedMap || {};
+            endTime = examState.endTime || null;
+            submitted = !!examState.submitted;
+
+            if (selectedIds.length) {
+                introEl.classList.add('hidden');
+                rankSection.classList.add('hidden');
+                actionsContainer.classList.remove('hidden');
+                renderQuestions();
+                if (submitted) {
+                    const chosen = QUESTIONS.filter(q => selectedIds.includes(q.id));
+                    const details = chosen.map(q => {
+                        const user = (q.id in selectedMap) ? selectedMap[q.id] : null;
+                        const correct = user === q.answer;
+                        return {
+                            id: q.id,
+                            user,
+                            answer: q.answer,
+                            correct,
+                            options: q.options,
+                            explain: q.explain
+                        };
+                    });
+                    const correctCount = details.filter(d => d.correct).length;
+                    const wrongCount = details.filter(d => d.user !== null && !d.correct).length;
+                    const score = correctCount * 1 + wrongCount * (-0.25);
+                    submitBtn.disabled = true;
+                    renderSummary(score, details);
+                    markReview(details);
+                    renderLeaderboard();
+                } else if (endTime) {
+                    submitBtn.disabled = false;
+                    startTimer();
+                }
+            }
+        }
+
+        // ----------------------------
+        // Wiring
+        // ----------------------------
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value.trim();
+            if (username) {
+                loginUser(username);
+            }
+        });
+
+        startBtn.addEventListener('click', () => {
+            if (loadFromStorage(EXAM_STATE_KEY) && !submitted) {
+                if (!confirm('Start a new attempt? Your current attempt will be replaced.')) return;
+            }
+            resetExam();
+            startExam();
+        });
+        resetBtn.addEventListener('click', resetExam);
+        submitBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            submitExam();
+        });
+
+        window.addEventListener('beforeunload', (e) => {
+            const state = loadFromStorage(EXAM_STATE_KEY);
+            if (state && state.selectedIds && state.selectedIds.length && !state.submitted) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // Initialize
+        (function init() {
+            timerEl.textContent = formatTime(EXAM_MINUTES * 60);
+            restoreState();
+        })();
+    </script>
+</body>
+</html>
